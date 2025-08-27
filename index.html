@@ -5,20 +5,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Kelseys Weather App</title>
+        <!--Favicon-->
+        <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+        <link rel="manifest" href="img/site.webmanifest">
 
         <!--Web Fonts-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap"
-            rel="stylesheet">
-
-        <!--Custom CSS-->
-        <link rel="stylesheet" href="css/styles.css">
-
-        <!--Weather Icons CSS by Erik Flowers-->
-        <link rel="stylesheet" href="css/weather-icons.css">
-        <link rel="stylesheet" href="css/weather-icons-wind.css">
+        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap" rel="stylesheet">
 
         <!--Bootstrap 5 CSS-->
         <link
@@ -27,8 +23,14 @@
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
             crossorigin="anonymous">
 
+        <!--Custom CSS-->
+        <link rel="stylesheet" href="css/styles.css">
+
+        <!--Weather Icons CSS by Erik Flowers-->
+        <link rel="stylesheet" href="css/weather-icons.css">
+
         <!--JavaScript-->
-        <script type="module" src="js/main.js" defer></script>
+        <script src="js/main.js" defer></script>
 
     </head>
 
@@ -46,8 +48,7 @@
                             <div class="row justify-content-center">
                                 <div
                                     class="search-container position-relative p-0 m-0">
-                                    <form
-                                        class="d-flex align-items-center w-100">
+                                    <form class="d-flex align-items-center w-100" id="citySearchForm">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             width="20" height="20"
                                             viewBox="0 0 24 24"

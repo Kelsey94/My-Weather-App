@@ -1,25 +1,33 @@
+
+console.log("JS is connected");
+
 //API OpenWeather
 const apiKey = "81169cf5652a98069c5713e74765afc5";
+
 //DOM Elements
+const cityForm = document.getElementById("citySearchForm");
 const cityInputElement = document.getElementById("citySearch");
 const cityDisplayElement = document.getElementById("cityDisplay");
-const currentWeatherDescription = document.getElementById(
-	"currentWeatherDescription"
-);
+const currentWeatherDescription = document.getElementById("currentWeatherDescription");
 const currentWeatherIcon = document.getElementById("currentWeatherIcon");
 const currentWeatherNumber = document.getElementById("currentWeatherNumber");
 
-cityInputElement.addEventListener("submit", (event) => {
-	event.preventDefault();
+const getCityObjectData = async () => {
 	const cityInput = cityInputElement.value;
-	console.log("cityInput:", cityInput);
-	async (params) => {
-		const response = await fetch(
-			`https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}`
-		);
-		const data = await response.json();
-		console.log(data);
-	};
+	console.log(cityInput);
+	const response = await fetch(
+		`https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}`
+	);
+	const data = await response.json();
+	console.log(data);
+};
+
+//Event Listener for City Name 
+cityForm.addEventListener("submit", (event) => {
+	event.preventDefault();
+	getCityObjectData();
+
+
 });
 
 //Temperature unit toggle
@@ -36,3 +44,4 @@ function dynamicTextSize() {
 		cityDisplayElement.style.fontSize = "22px";
 	}
 }
+
