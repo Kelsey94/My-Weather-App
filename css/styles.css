@@ -45,3 +45,10 @@ body {
 }
 
 
+.city-name{
+  max-width: 100%;
+  display: flex;
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}

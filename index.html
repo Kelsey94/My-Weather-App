@@ -32,41 +32,55 @@
             <!--Weather Card-->
             <div class="card col-10 col-lg-6 mx-auto">
                 <!--Card Header-->
-                <div class="card-header d-flex justify-content-between">
-                    <!--City Search-->
-                    <form class="form form-text">
-                        <input type="text" class=""
-                        placeholder=" City">
-                    </form>
-                    <!--Celcius / Farenheit Toggle-->
-                    <div class="d-flex column-gap-2">
-                        <div class="pe-2">&deg;C</div>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-                            <label class="form-check-label" for="switchCheckDefault"></label>
-                        </div>
-                        <div class="">&deg;F</div>
-                    </div>
-                    
+                <div class="card-header d-flex flex-column">
 
+                    <!--City Search-->
+                    <form class="row align-items-center gy-2 gx-3">
+                        <div class="col-12 col-sm-9 col-md-10 col-lg-9">
+                            <input type="text" class="city-search form-control" id="citySearch"
+                            placeholder=" City">
+                        </div>
+
+
+                        <!--Celcius / Farenheit Toggle-->
+                        <div class="col-12 col-sm-3 col-md-2 col-lg-3">
+                            <div class="d-flex flex-row justify-content-start">
+                                <!--Celcius Label-->
+                                <div class="pe-1">&deg;C</div>
+                                <!--Toggle-->
+                                <div class="form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                                    <label class="form-check-label" for="switchCheckDefault"></label>
+                                </div>
+                                <!--Farenheit Label-->
+                                <div class="">&deg;F</div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 
-                <div class="card-body d-flex flex-column justify-content-center">
-                    
-                    <p class="display-4">City</p>
-
-                    <!--Weather Icon-->
-                    <i class="wi wi-day-sunny display-1"></i>
-
-                    <!--Current Temperature-->
-                    <p class="display-4"><span>30</span>&deg;</p>
-
+                <!--Card Body: Weather Data-->
+                <div class="card-body d-flex flex-column justify-content-center flex-lg-row justify-content-lg-evenly align-items-center">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <!--City Name-->
+                        <p class="city-display" id="cityDisplay">Edmonton</p>
+                        <!--Weather Description-->
+                        <p class="fs-6 text-center fw-lighter">Sunny, Clear</p>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-center align-items-center column-gap-5">
+                        <!--Weather Icon-->
+                        <i class="wi wi-day-sunny display-1" id="currentWeatherIcon"></i>
+                        <!--Current Temperature-->
+                        <p class="display-4"><span id="currentWeatherNumber">30</span>&deg;</p>
+                    </div>
                 </div>
+
+                <!--TODO: FEATURE: 5 day forecast: 
 
                 <div class="card-footer">
                     <h2 class="display-6">5 Day Forecast</h2>
                     <div class="d-lg-flex justify-content-evenly">
-                        <!--5 day forecast-->
+                        
 
                         <div class="card d-flex flex-column">
                             <p class="card-header">Saturday</p>
@@ -100,6 +114,7 @@
 
                     </div>
                 </div>
+                -->
 
 
             </div>
