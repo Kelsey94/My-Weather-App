@@ -7,11 +7,21 @@ const currentWeatherDescription = document.getElementById('currentWeatherDescrip
 const currentWeatherIcon = document.getElementById('currentWeatherIcon');
 const currentWeatherNumber = document.getElementById('currentWeatherNumber');
 
-//Search input
-const cityInput = cityInputElement.value;
-console.log(cityInput);
 
 
+
+cityInputElement.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const cityInput = cityInputElement.value;
+  console.log('cityInput:', cityInput);
+  async (params) => {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}`);
+    const data = await response.json();
+    console.log(data);
+
+  }
+  
+});
 
 //Temperature unit toggle
 const tempUnitToggle = document.getElementById('switchCheckDefault');

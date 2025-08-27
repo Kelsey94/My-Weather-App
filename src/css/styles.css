@@ -10,8 +10,8 @@
 body {
     font-family: "M PLUS Rounded 1c", sans-serif;
     background: linear-gradient(to right, #667eea, #764ba2);
-    color: white;
 }
+
 
 /*Fonts*/
 .m-plus-rounded-1c-light {
@@ -39,6 +39,42 @@ body {
 }
 
 /*Main*/
+
+/*Search Bar*/
+    .search-container {
+        background-color: white;
+        border-radius: 50px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        max-width: 500px;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .search-container:hover {
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .form-control.search-input {
+        border: none;
+        background: transparent;
+        padding-left: 20px;
+        font-size: 1rem;
+        height: 50px;
+    }
+
+    .form-control.search-input:focus {
+        box-shadow: none;
+        outline: none;
+    }
+
+    .search-icon {
+        color: #6c757d;
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 
 .card{
     margin-top: 3rem;
