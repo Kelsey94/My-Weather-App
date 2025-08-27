@@ -3,3 +3,5 @@ api-key.txt
 node_modules/
 icons-map.txt
 .DS_Store
+dist/
+.parcel-cache/
