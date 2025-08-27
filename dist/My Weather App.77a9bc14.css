@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #fff;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+.m-plus-rounded-1c-light {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+}
+
+.m-plus-rounded-1c-regular {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.m-plus-rounded-1c-medium {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.m-plus-rounded-1c-bold {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.card {
+  margin-top: 3rem;
+}
+
+.city-name {
+  max-width: 100%;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 300;
+  display: flex;
+}
+/*# sourceMappingURL=My Weather App.77a9bc14.css.map */
