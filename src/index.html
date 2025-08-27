@@ -1,96 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelseys Weather App</title>
 
-    <!--Web Fonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kelseys Weather App</title>
 
-    <!--Custom CSS-->
-    <link rel="stylesheet" href="css/styles.css">
+        <!--Web Fonts-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap"
+            rel="stylesheet">
 
-    <!--Weather Icons CSS by Erik Flowers-->
-    <link rel="stylesheet" href="css/weather-icons.css">
-    <link rel="stylesheet" href="css/weather-icons-wind.css">
-    
+        <!--Custom CSS-->
+        <link rel="stylesheet" href="css/styles.css">
 
-    <!--Bootstrap 5 CSS-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <!--Weather Icons CSS by Erik Flowers-->
+        <link rel="stylesheet" href="css/weather-icons.css">
+        <link rel="stylesheet" href="css/weather-icons-wind.css">
 
-    <!--JavaScript-->
-    <script type="module" src="js/main.js" defer></script>
+        <!--Bootstrap 5 CSS-->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+            crossorigin="anonymous">
 
-</head>
-<body>
+        <!--JavaScript-->
+        <script type="module" src="js/main.js" defer></script>
 
-    <main>
-        <div class="container text-center text-nowrap">
+    </head>
 
-            <!--Weather Card-->
-            <div class="card col-10 col-lg-6 mx-auto">
-                <!--Card Header-->
-                <div class="card-header d-flex flex-column py-4">
-                    <!--City Search-->
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="search-container position-relative p-0 m-0">
-                                <form class="d-flex align-items-center w-100">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                        class="search-icon feather feather-search">
-                                        <circle cx="11" cy="11" r="8"></circle>
-                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                    </svg>
-                                    <input class="form-control search-input ps-5" id="citySearch" type="search"
-                                        placeholder="City Name" aria-label="Search">
-                                    <button class="btn btn-search bg-primary mx-2 rounded-5 text-white py-1 px-3" type="submit">Search</button>
-                                </form>
+    <body>
+
+        <main>
+            <div class="container text-center text-nowrap">
+
+                <!--Weather Card-->
+                <div class="card col-10 col-lg-6 mx-auto">
+                    <!--Card Header-->
+                    <div class="card-header d-flex flex-column py-4">
+                        <!--City Search-->
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div
+                                    class="search-container position-relative p-0 m-0">
+                                    <form
+                                        class="d-flex align-items-center w-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="20" height="20"
+                                            viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            class="search-icon feather feather-search">
+                                            <circle cx="11" cy="11"
+                                                r="8"></circle>
+                                            <line x1="21" y1="21" x2="16.65"
+                                                y2="16.65"></line>
+                                        </svg>
+                                        <input
+                                            class="form-control search-input ps-5"
+                                            id="citySearch" type="search"
+                                            placeholder="City Name"
+                                            aria-label="Search">
+                                        <button
+                                            class="btn btn-search bg-primary mx-2 rounded-5 text-white py-1 px-3"
+                                            type="submit">Search</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!--Card Body: Weather Data-->
-                <div class="card-body d-flex flex-column justify-content-center flex-lg-row justify-content-lg-evenly align-items-center position-relative">
-                    <!--Celcius / Farenheit Toggle-->
-                    <div class="position-absolute top-0 end-0 pe-2 pt-2">
-                        <div class="d-flex flex-row justify-content-start">
-                            <!--Celcius Label-->
-                            <div class="pe-1">&deg;C</div>
-                            <!--Toggle-->
-                            <div class="form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-                                <label class="form-check-label" for="switchCheckDefault"></label>
+
+                    <!--Card Body: Weather Data-->
+                    <div
+                        class="card-body d-flex flex-column justify-content-center flex-lg-row justify-content-lg-evenly align-items-center position-relative">
+                        <!--Celcius / Farenheit Toggle-->
+                        <div class="position-absolute top-0 end-0 pe-2 pt-2">
+                            <div class="d-flex flex-row justify-content-start">
+                                <!--Celcius Label-->
+                                <div class="pe-1">&deg;C</div>
+                                <!--Toggle-->
+                                <div class="form-switch">
+                                    <input class="form-check-input"
+                                        type="checkbox" role="switch"
+                                        id="switchCheckDefault">
+                                    <label class="form-check-label"
+                                        for="switchCheckDefault"></label>
+                                </div>
+                                <!--Farenheit Label-->
+                                <div class>&deg;F</div>
                             </div>
-                            <!--Farenheit Label-->
-                            <div class="">&deg;F</div>
+                        </div>
+
+                        <div
+                            class="d-flex flex-column justify-content-center align-items-center">
+                            <!--City Name-->
+                            <p class="city-display"
+                                id="cityDisplay">Edmonton</p>
+                            <!--Weather Description-->
+                            <p class="fs-6 text-center fw-lighter">Sunny,
+                                Clear</p>
+                        </div>
+                        <div
+                            class="d-flex flex-column flex-md-row justify-content-center align-items-center column-gap-5">
+                            <!--Weather Icon-->
+                            <i class="wi wi-day-sunny display-1"
+                                id="currentWeatherIcon"></i>
+                            <!--Current Temperature-->
+                            <p class="display-4"><span
+                                    id="currentWeatherNumber">30</span>&deg;</p>
                         </div>
                     </div>
 
-                    <div class="d-flex flex-column justify-content-center align-items-center">
-                        <!--City Name-->
-                        <p class="city-display" id="cityDisplay">Edmonton</p>
-                        <!--Weather Description-->
-                        <p class="fs-6 text-center fw-lighter">Sunny, Clear</p>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-center align-items-center column-gap-5">
-                        <!--Weather Icon-->
-                        <i class="wi wi-day-sunny display-1" id="currentWeatherIcon"></i>
-                        <!--Current Temperature-->
-                        <p class="display-4"><span id="currentWeatherNumber">30</span>&deg;</p>
-                    </div>
-                </div>
-
-                <!--TODO: FEATURE: 5 day forecast: 
+                    <!--TODO: FEATURE: 5 day forecast:
 
                 <div class="card-footer">
                     <h2 class="display-6">5 Day Forecast</h2>
                     <div class="d-lg-flex justify-content-evenly">
-                        
+
 
                         <div class="card d-flex flex-column">
                             <p class="card-header">Saturday</p>
@@ -126,11 +157,11 @@
                 </div>
                 -->
 
+                </div>
 
             </div>
-            
-        </div>
-    </main>
-    
-</body>
+        </main>
+
+    </body>
+
 </html>

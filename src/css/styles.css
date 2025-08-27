@@ -1,90 +1,88 @@
 /*Reset*/
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 /*Global*/
 
 body {
-    font-family: "M PLUS Rounded 1c", sans-serif;
-    background: linear-gradient(to right, #667eea, #764ba2);
+	font-family: "M PLUS Rounded 1c", sans-serif;
+	background: linear-gradient(to right, #667eea, #764ba2);
 }
-
 
 /*Fonts*/
 .m-plus-rounded-1c-light {
-  font-family: "M PLUS Rounded 1c", sans-serif;
-  font-weight: 300;
-  font-style: normal;
+	font-family: "M PLUS Rounded 1c", sans-serif;
+	font-weight: 300;
+	font-style: normal;
 }
 
 .m-plus-rounded-1c-regular {
-  font-family: "M PLUS Rounded 1c", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+	font-family: "M PLUS Rounded 1c", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 .m-plus-rounded-1c-medium {
-  font-family: "M PLUS Rounded 1c", sans-serif;
-  font-weight: 500;
-  font-style: normal;
+	font-family: "M PLUS Rounded 1c", sans-serif;
+	font-weight: 500;
+	font-style: normal;
 }
 
 .m-plus-rounded-1c-bold {
-  font-family: "M PLUS Rounded 1c", sans-serif;
-  font-weight: 700;
-  font-style: normal;
+	font-family: "M PLUS Rounded 1c", sans-serif;
+	font-weight: 700;
+	font-style: normal;
 }
 
 /*Main*/
 
 /*Search Bar*/
-    .search-container {
-        background-color: white;
-        border-radius: 50px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        padding: 10px;
-        max-width: 500px;
-        width: 100%;
-        transition: all 0.3s ease;
-    }
-
-    .search-container:hover {
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    }
-
-    .form-control.search-input {
-        border: none;
-        background: transparent;
-        padding-left: 20px;
-        font-size: 1rem;
-        height: 50px;
-    }
-
-    .form-control.search-input:focus {
-        box-shadow: none;
-        outline: none;
-    }
-
-    .search-icon {
-        color: #6c757d;
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-.card{
-    margin-top: 3rem;
+.search-container {
+	background-color: white;
+	border-radius: 50px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+	padding: 10px;
+	max-width: 500px;
+	width: 100%;
+	transition: all 0.3s ease;
 }
 
+.search-container:hover {
+	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
 
-.city-name{
-  max-width: 100%;
-  display: flex;
-  font-size: 2rem;
-  font-weight: 300;
-  margin-bottom: 1rem;
+.form-control.search-input {
+	border: none;
+	background: transparent;
+	padding-left: 20px;
+	font-size: 1rem;
+	height: 50px;
+}
+
+.form-control.search-input:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+.search-icon {
+	color: #6c757d;
+	position: absolute;
+	left: 15px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.card {
+	margin-top: 3rem;
+}
+
+.city-name {
+	max-width: 100%;
+	display: flex;
+	font-size: 2rem;
+	font-weight: 300;
+	margin-bottom: 1rem;
 }
