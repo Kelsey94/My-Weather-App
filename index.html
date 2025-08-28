@@ -39,6 +39,10 @@ If only one city matches, it skips the dropdown and directly shows the weather. 
         <link rel="stylesheet" href="css/weather-icons.css">
 
         <!--JavaScript-->
+        <script src="js/config.js" defer></script>
+        <script src="js/utils.js" defer></script>
+        <script src="js/api.js" defer></script>
+        <script src="js/ui.js" defer></script>
         <script src="js/main.js" defer></script>
 
     </head>
@@ -82,7 +86,7 @@ If only one city matches, it skips the dropdown and directly shows the weather. 
                                             autocorrect="on"
                                             >
                                         <button
-                                            class="btn btn-search bg-primary mx-2 rounded-5 text-white py-1 px-3"
+                                            class="btn btn-search bg-primary mx-2 rounded-5 text-white px-3 me-0"
                                             type="submit">Search</button>
                                     </form>
                                     <div class="dropdown d-none">
@@ -97,7 +101,7 @@ If only one city matches, it skips the dropdown and directly shows the weather. 
 
                     <!--Card Body: Weather Data-->
                     <div
-                        class="card-body d-flex flex-column justify-content-center flex-lg-row justify-content-lg-evenly align-items-center position-relative">
+                        class="card-body d-flex flex-column justify-content-center flex-xl-row justify-content-lg-evenly align-items-center position-relative mb-5">
                         <!--Celcius / Farenheit Toggle-->
                         <div class="position-absolute top-0 end-0 pe-2 pt-2">
                             <div class="d-flex flex-row justify-content-start">
@@ -118,6 +122,7 @@ If only one city matches, it skips the dropdown and directly shows the weather. 
 
                         <div
                             class="d-flex flex-column justify-content-center align-items-center">
+                            <p id="emptyWeatherMsg" class="w-50 text-wrap py-5 mt-4 text-secondary">Enter a city name to get the current weather</p>
                             <!--City Name-->
                             <p class="city-display"
                                 id="cityDisplay"></p>
@@ -134,6 +139,8 @@ If only one city matches, it skips the dropdown and directly shows the weather. 
                                 <span id="currentWeatherNumber"></span></p>
                         </div>
                     </div>
+
+                    
 
                     <!--TODO: FEATURE: 5 day forecast:
 
@@ -178,9 +185,97 @@ If only one city matches, it skips the dropdown and directly shows the weather. 
 
                 </div>
 
+                <!--Saved Weather Card-->
+                <div class="card d-none col-10 col-lg-6 mx-auto">
+                    <div
+                        class="card-body d-flex flex-column justify-content-center flex-xl-row justify-content-lg-evenly align-items-center position-relative mb-5">
+                        <!--Celcius / Farenheit Toggle-->
+                        <div class="position-absolute top-0 end-0 pe-2 pt-2">
+                            <div class="d-flex flex-row justify-content-start">
+                                <!--Celcius Label-->
+                                <div class="pe-1">&deg;C</div>
+                                <!--Toggle-->
+                                <div class="form-switch">
+                                    <input class="form-check-input"
+                                        type="checkbox" role="switch"
+                                        id="switchCheckDefault">
+                                    <label class="form-check-label"
+                                        for="switchCheckDefault"></label>
+                                </div>
+                                <!--Farenheit Label-->
+                                <div class>&deg;F</div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="d-flex flex-column justify-content-center align-items-center">
+                            <p id="emptyWeatherMsg" class="w-50 text-wrap py-5 mt-4 text-secondary"></p>
+                            <!--City Name-->
+                            <p class="city-display"
+                                id="cityDisplay"></p>
+                            <!--Weather Description-->
+                            <p class="fs-6 text-center fw-lighter" id="currentWeatherDescription"></p>
+                        </div>
+                        <div
+                            class="d-flex flex-column flex-md-row justify-content-center align-items-center column-gap-5">
+                            <!--Weather Icon-->
+                            <i class="wi display-1"
+                                id="currentWeatherIcon"></i>
+                            <!--Current Temperature-->
+                            <p class="display-4">
+                                <span id="currentWeatherNumber"></span></p>
+                        </div>
+                    </div>
+                </div>
+                    
+                    <!--TODO: FEATURE: 5 day forecast:
+
+                <div class="card-footer">
+                    <h2 class="display-6">5 Day Forecast</h2>
+                    <div class="d-lg-flex justify-content-evenly">
+
+
+                        <div class="card d-flex flex-column">
+                            <p class="card-header">Saturday</p>
+                            <i class="wi wi-day-sunny"></i>
+                            <p>30&deg;</p>
+                        </div>
+
+                        <div class="card d-flex flex-column">
+                            <p class="card-header">Sunday</p>
+                            <i class="wi wi-day-sunny"></i>
+                            <p>30&deg;</p>
+                        </div>
+
+                        <div class="card d-flex flex-column">
+                            <p class="card-header">Monday</p>
+                            <i class="wi wi-day-sunny"></i>
+                            <p>30&deg;</p>
+                        </div>
+
+                        <div class="card d-flex flex-column">
+                            <p class="card-header">Tuesday</p>
+                            <i class="wi wi-day-sunny"></i>
+                            <p>30&deg;</p>
+                        </div>
+
+                        <div class="card d-flex flex-column">
+                            <p class="card-header">Wednesday</p>
+                            <i class="wi wi-day-sunny"></i>
+                            <p>30&deg;</p>
+                        </div>
+
+                    </div>
+                </div>-->
             </div>
         </main>
 
+        <div class="btn-add position-fixed bottom-0 end-0 p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fff" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+        </div>
     </body>
 
 </html>
