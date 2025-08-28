@@ -1,4 +1,4 @@
-# Ignore local API key
+# Ignore
 api-key.txt
 node_modules/
 icons-map.txt

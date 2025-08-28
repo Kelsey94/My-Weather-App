@@ -57,13 +57,6 @@ const getCityObjectData = async () => {
 					cityInputElement.value = option.dataset.name;
 					const dropdown = document.querySelector(".dropdown");
 					dropdown.classList.add("d-none");
-					//Remove the empty weather message
-					const emptyWeatherMsg = document.getElementById("emptyWeatherMsg");
-					if (!cityInputElement.value) {
-						emptyWeatherMsg.classList.remove("visually-hidden");
-					} else {
-						emptyWeatherMsg.classList.add("visually-hidden");
-					}
 					fetchWeather(option.dataset.lat, option.dataset.lon);
 				});
 				cityList.appendChild(option);
@@ -85,10 +78,24 @@ async function fetchWeather(lat, lon) {
 		const data = await response.json();
 		console.log(data);
 		lastData = data;
+		// Save to localStorage for persistence
+		localStorage.setItem('weatherData', JSON.stringify(data));
 		// Update DOM
 		cityDisplayElement.textContent = data.name;
-		currentWeatherDescription.textContent = data.weather[0].description;
-		const isFahrenheit = tempUnitToggle.checked;
+    const isFahrenheit = tempUnitToggle.checked;
+		const description = data.weather[0].description;
+		const capitalizedDescription = description.charAt(0).toUpperCase() + description.slice(1);
+		currentWeatherDescription.textContent = capitalizedDescription;
+
+    //Feels-Like Temp
+    const feels_likeK = data.main.feels_like;
+    //Convert from Kelvin to Celsius
+    const feels_likeC = feels_likeK - 273.15;
+    //If the temperature unit is Fahrenheit, convert to Fahrenheit, otherwise keep Celsius
+    const feels_like = isFahrenheit ? (feels_likeC * 9/5 + 32) : feels_likeC;
+    currentWeatherDescription.innerHTML += `<br> Feels like: ${Math.round(feels_like)}°${isFahrenheit ? 'F' : 'C'}`;
+
+    //Current Temp
 		const tempK = data.main.temp;
 		const tempC = tempK - 273.15;
 		const temp = isFahrenheit ? (tempC * 9/5 + 32) : tempC;
@@ -96,8 +103,15 @@ async function fetchWeather(lat, lon) {
 		const iconClass = getWeatherIconClass(data.weather[0].id, data.weather[0].icon);
 		currentWeatherIcon.className = iconClass;
 		dynamicTextSize();
+		
+		// Hide empty weather message after successful data load
+		const emptyWeatherMsg = document.getElementById("emptyWeatherMsg");
+		emptyWeatherMsg.classList.add("visually-hidden");
 	} catch (error) {
 		console.error(error);
 		alert('Error fetching weather data: ' + error.message);
+		// Show empty weather message on error
+		const emptyWeatherMsg = document.getElementById("emptyWeatherMsg");
+		emptyWeatherMsg.classList.remove("visually-hidden");
 	}
 }

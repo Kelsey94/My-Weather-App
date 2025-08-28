@@ -13,6 +13,14 @@ body {
 }
 
 /*Fonts*/
+
+@font-face {
+  font-family: 'weathericons';
+  src: url('../font/weathericons-regular-webfont.woff') format('woff'),
+     url('../font/weathericons-regular-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 .m-plus-rounded-1c-light {
 	font-family: "M PLUS Rounded 1c", sans-serif;
 	font-weight: 300;
@@ -125,4 +133,23 @@ body {
 #currentWeatherIcon {
 	font-size: 6rem;
 	line-height: 2;
+}
+
+
+/*After the accordion button has been clicked, it flips the icon*/
+
+#accordionButton:hover{
+	cursor: pointer;
+	transform: scale(1.2);
+	transition: all 0.3s ease;
+	fill: #2d54ff;
+
+}
+
+#accordionButton.active{
+	transform: rotate(180deg);
+	transition: all 0.3s ease;
+	/*The fill colour stays blue on active*/
+	
+	fill: #2d54ff;
 }
