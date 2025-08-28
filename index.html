@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!--User searches for a city (e.g., "London").
+Geo API fetches matching cities and populates the dropdown with <div> elements.
+User clicks a city option:
+Input field updates with the city name.
+Dropdown hides.
+Weather data is fetched and displayed (temperature, description, icon).
+Temperature toggle works to switch between °C and °F.
+If only one city matches, it skips the dropdown and directly shows the weather. -->
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,13 +73,23 @@
                                         </svg>
                                         <input
                                             class="form-control search-input ps-5"
-                                            id="citySearch" type="search"
+                                            id="citySearch" 
+                                            type="search"
                                             placeholder="City Name"
-                                            aria-label="Search">
+                                            aria-label="Search"
+                                            autocomplete="on"
+                                            autocapitalize="on"
+                                            autocorrect="on"
+                                            >
                                         <button
                                             class="btn btn-search bg-primary mx-2 rounded-5 text-white py-1 px-3"
                                             type="submit">Search</button>
                                     </form>
+                                    <div class="dropdown d-none">
+                                        <div id="cityList" class="dropdown-content">
+                                            
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -101,19 +120,18 @@
                             class="d-flex flex-column justify-content-center align-items-center">
                             <!--City Name-->
                             <p class="city-display"
-                                id="cityDisplay">Edmonton</p>
+                                id="cityDisplay"></p>
                             <!--Weather Description-->
-                            <p class="fs-6 text-center fw-lighter">Sunny,
-                                Clear</p>
+                            <p class="fs-6 text-center fw-lighter" id="currentWeatherDescription"></p>
                         </div>
                         <div
                             class="d-flex flex-column flex-md-row justify-content-center align-items-center column-gap-5">
                             <!--Weather Icon-->
-                            <i class="wi wi-day-sunny display-1"
+                            <i class="wi display-1"
                                 id="currentWeatherIcon"></i>
                             <!--Current Temperature-->
-                            <p class="display-4"><span
-                                    id="currentWeatherNumber">30</span>&deg;</p>
+                            <p class="display-4">
+                                <span id="currentWeatherNumber"></span></p>
                         </div>
                     </div>
 

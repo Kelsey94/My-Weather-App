@@ -75,6 +75,39 @@ body {
 	transform: translateY(-50%);
 }
 
+.dropdown{
+	width: 80%;
+	margin: 0 auto;
+}
+.dropdown-content{
+	position: absolute;
+	top: -0.3rem;
+	background-color: white;
+	border-radius: 0px 0px 5px 5px;
+	box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+	width: 100%;
+	max-height: 9rem;
+	text-align: left;
+	overflow-y: auto;
+	padding: 0.5rem 1rem;
+	color: #6c757d;
+}
+.dropdown-content *{
+	padding: 0.5rem 0;
+	border-bottom: 1px solid #eee;
+}
+.dropdown-content *:last-child{
+	border-bottom: none;
+}
+
+.dropdown-content div:hover{
+	text-decoration: underline;
+	cursor: pointer;
+	color: #667eea;
+}
+
+
 .card {
 	margin-top: 3rem;
 }
@@ -85,4 +118,9 @@ body {
 	font-size: 2rem;
 	font-weight: 300;
 	margin-bottom: 1rem;
+}
+
+#currentWeatherIcon {
+	font-size: 6rem;
+	line-height: 2;
 }
