@@ -16,7 +16,7 @@ const accordionButtonUp = document.getElementById("accordionButtonUp");
 let lastData = null;
 
 // Load saved weather data on page load
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
 	const savedData = localStorage.getItem("weatherData");
 	if (savedData) {
 		lastData = JSON.parse(savedData);
@@ -48,9 +48,17 @@ window.addEventListener("load", () => {
 		currentWeatherIcon.className = iconClass;
 		dynamicTextSize();
 
+		// Restore local time if timezone data exists
+		if (lastData.timezone !== undefined) {
+			updateLocalTime(lastData.timezone);
+		}
+
 		// Hide empty weather message
 		const emptyWeatherMsg = document.getElementById("emptyWeatherMsg");
 		emptyWeatherMsg.classList.add("visually-hidden");
+		// Fetch and display UV Index
+		const uvValue = await fetchUVIndex(lastData.coord.lat, lastData.coord.lon);
+		updateUVIndex(uvValue);
 	}
 });
 

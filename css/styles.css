@@ -116,7 +116,7 @@ body {
 	display: flex;
 	font-size: 2rem;
 	font-weight: 300;
-	margin-bottom: 1rem;
+	margin-bottom: 0rem;
 }
 
 #currentWeatherIcon {
@@ -161,6 +161,46 @@ body {
 }
 
 
+#moreDetail{
+	background: #d9d9e3;
+	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.detail-cards{
+	display: flex;
+	padding: 1rem 0;
+	justify-content: space-around;
+	column-gap: 0.5rem;
+}
+
+.detail-box-container{
+	width: 45%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	background: #f9fcfe;
+	border-radius: 0.5rem;
+}
+
+.detail-title {
+	background: #eaeff2;
+	border-radius: 0.5rem 0.5rem 0 0;
+	margin-bottom: 0;
+}
+
+.detail-summary {
+	text-align: center;
+	padding: 0.5rem 0;
+	margin: 0;
+	height: 10px;
+	font-size: 0.9rem;
+	line-height: 1;
+	font-weight: 100;
+	opacity: 0.8;
+	display: block;
+	margin-bottom: 0;
+}
+
 .range-slider{
 	background: linear-gradient(to right,
 		#64e9b8 0%,   /* 0-2: Low - Green */
@@ -174,14 +214,14 @@ body {
 	height: 5px;
 	outline: none;
 	appearance: none;
-
+	margin: 0.5rem 0;
 }
 
 .range-slider::-webkit-slider-thumb {
 	appearance: none;
 	background: white;
 	width: 7px;
-	height: 14px;
+	height: 10px;
 	border-radius: 3px;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
@@ -190,8 +230,15 @@ body {
 .range-slider::-moz-range-thumb {
 	appearance: none;
 	width: 7px;
-	height: 20px;
+	height: 10px;
 	border-radius: 3px;
 	background: #fff;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Local Time Styling */
+.local-time {
+	font-size: 0.875rem;
+	font-weight: 300;
+	opacity: 0.9;
 }

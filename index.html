@@ -17,11 +17,8 @@
         <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap" rel="stylesheet">
 
         <!--Bootstrap 5 CSS-->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-            crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
 
         <!--Custom CSS-->
         <link rel="stylesheet" href="css/styles.css">
@@ -113,17 +110,19 @@
                             <!--Empty Weather Data Message-->
                             <p id="emptyWeatherMsg" class="w-50 text-wrap py-5 mt-4 text-secondary">Enter a city name to get the current weather</p>
                             <!--City Name-->
-                            <p class="city-display"
+                            <p class="city-display mb-0"
                                 id="cityDisplay"></p>
+                            <!--Local Time-->
+                            <p class="local-time text-muted small fw-light mb-0" id="localTime"></p>
                             <!--Weather Description-->
                             <p class="fs-6 text-center fw-lighter mb-0" id="currentWeatherDescription"></p>
                             <!--Feels Like Temp-->
-                            <p class="fs-6 text-center fw-lighter" id="feelsLikeTemp"></p>
+                            <p class="fs-6 text-center fw-lighter mb-0" id="feelsLikeTemp"></p>
                         </div>
                         <div
                             class="d-flex flex-column flex-md-row justify-content-center align-items-center column-gap-5">
                             <!--Weather Icon-->
-                            <i class="wi display-1"
+                            <i class="wi"
                                 id="currentWeatherIcon"></i>
                             <!--Current Temperature-->
                             <p class="display-4">
@@ -146,22 +145,21 @@
                     </div>
                     
 
-                    <div id="moreDetail" class="card-footer bg-dark-subtle h-25 "> <!--Add Back d-none after-->
-
+                    <div id="moreDetail" class="card-footer"> <!--Add Back d-none after-->
+                        <div class="detail-cards">
                             <!--UV Index Container-->
-                            <div class="d-flex flex-row gap-3 justify-content-center align-items-start">
+                            <div class="detail-box-container">
                                 <!--UV Index Label-->
-                                <p id="uv_index" class="pt-2 fs-5 pe-2">
+                                <p id="uv_index" class="detail-title">
                                     UV Index:
-                                    <span id="uv-index-num" class="uv-index-num">
+                                    <span id="uv-index-num" class="detail-num">
                                         <!--UV Index Number Goes Here-->
-                                        3
                                     </span>
                                 </p>
                                 <!--UV Index Slider-->
-                                <div class="slider d-flex flex-column justify-content-start">
+                                <div class="slider">
                                 <!--UV Index Slider Label: Low, Moderate, High, Very High, Extreme-->
-                                    <label for="uv_index" class="uv-index-summary text-secondary">Moderate</label>
+                                    <label for="uv_index" id="uv-index-summary" class="detail-summary"></label>
                                     <input
                                         class="range-slider"
                                         id="uv-index-range"
@@ -169,15 +167,62 @@
                                         name="uv-index-num"
                                         min="1"
                                         max="13"
-                                        value="3">
+                                        value=""
+                                        disabled>
                                 </div>
                             </div>
-                            
-                        <h2 class="d-none fs-5 fw-normal">3-Day Forecast</h2>
-                        <div id="forecast" class="row justify-content-evenly">
-                            <div class="m-1 bg-light border border-dark-subtle col-3 rounded-4">Hi</div>
-                            <div class="m-1 bg-light border border-dark-subtle col-3 rounded-4">Hi</div>
-                            <div class="m-1 bg-light border border-dark-subtle col-3 rounded-4">Hi</div>
+
+                            <!--Humidity Container-->
+                            <div class="detail-box-container">
+                                <!--Humidity Label-->
+                                <p id="humidity" class="detail-title">
+                                    Humidity:
+                                    <span id="humidity-num" class="detail-num">
+                                        <!--Humidity % Goes Here-->
+                                    </span>
+                                </p>
+                                <!--Humidity Slider-->
+                                <div class="slider">
+    
+                                <!--Range of humidex: Scale of comfort:
+                                0 to 19:  = Dry
+                                20 to 29: = Comfortable
+                                30 to 39: = Humid
+                                40 to 45: = Very Humid
+                                Above 45: = Extreme
+                                -->
+                                <!--The standard Humidex formula used by Environment and Climate Change Canada is:
+
+                                Humidex = (air temperature) + h
+                                
+                                Where
+                                h = (0.5555)*(e - 10.0);
+                                e = vapour pressure in hPa (mbar), given by:
+                                e = 6.11 * exp[5417.7530 * ( (1/273.15) - (1/dewpoint) ) ]
+                                exp = 2.71828
+                                
+                                Dewpoint is expressed in kelvins(K) (temperature in K = temperature in °C + 273.15) and 5417.7530 is a rounded constant based on the molecular weight of water, latent heat of evaporation, and the universal gas constant.-->
+
+                                    <label for="humidity" id="humidity-summary" class="detail-summary"></label>
+                                    <input
+                                        class="range-slider"
+                                        id="humidex-range"
+                                        type="range"
+                                        name="humidex-num"
+                                        min="1"
+                                        max="50"
+                                        value=""
+                                        disabled>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="forecast d-none">
+                            <h2 class="d-none fs-5 fw-normal">3-Day Forecast</h2>
+                            <div id="forecast" class="row justify-content-evenly">
+                                <div class="m-1 bg-light border border-dark-subtle col-3 rounded-4">Hi</div>
+                                <div class="m-1 bg-light border border-dark-subtle col-3 rounded-4">Hi</div>
+                                <div class="m-1 bg-light border border-dark-subtle col-3 rounded-4">Hi</div>
+                            </div>
                         </div>
                     </div>
                 </div> 

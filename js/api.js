@@ -78,14 +78,28 @@ async function fetchWeather(lat, lon) {
 		const data = await response.json();
 		console.log(data);
 		lastData = data;
-		// Save to localStorage for persistence
-		localStorage.setItem('weatherData', JSON.stringify(data));
+
+		// Capture timestamp when data is successfully fetched
+		const timestamp = new Date();
+		lastData.timestamp = timestamp.getTime();
+
+		// Save to localStorage with timezone (no timestamp needed)
+		const dataToStore = {
+			...data,
+			timezone: data.timezone
+		};
+		localStorage.setItem('weatherData', JSON.stringify(dataToStore));
+
 		// Update DOM
 		cityDisplayElement.textContent = data.name;
     const isFahrenheit = tempUnitToggle.checked;
 		const description = data.weather[0].description;
 		const capitalizedDescription = description.charAt(0).toUpperCase() + description.slice(1);
 		currentWeatherDescription.textContent = capitalizedDescription;
+
+		// Update local time for the city
+		updateLocalTime(data.timezone);
+		
 
     //Feels-Like Temp
 		const feelsLikeTemp = document.getElementById('feelsLikeTemp');
@@ -115,6 +129,9 @@ async function fetchWeather(lat, lon) {
 	} catch (error) {
 		console.error(error);
 		alert('Error fetching weather data: ' + error.message);
+		// Show empty weather message on error
+		const emptyWeatherMsg = document.getElementById("emptyWeatherMsg");
+		emptyWeatherMsg.classList.remove("visually-hidden");
 	}
 }
 
@@ -137,12 +154,12 @@ async function fetchUVIndex(lat, lon) {
 // Update UV Index display and slider
 function updateUVIndex(uvValue) {
 	const uvNumberElement = document.getElementById('uv-index-num');
-	const uvSummaryElement = document.querySelector('.uv-index-summary');
-	const rangeSlider = document.getElementById('range-slider');
+	const uvSummaryElement = document.getElementById('uv-index-summary');
+	const rangeSlider = document.getElementById('uv-index-range');
 
 	if (uvValue !== null && uvValue !== undefined) {
-		// Update the UV Index number
-		uvNumberElement.textContent = uvValue.toFixed(1);
+		// Update the UV Index number rounded to the nearest integer
+		uvNumberElement.textContent = Math.round(uvValue);
 
 		// Update slider value
 		rangeSlider.value = Math.min(uvValue, 13); // Cap at 13 for display
@@ -151,16 +168,16 @@ function updateUVIndex(uvValue) {
 		let category = '';
 		let color = '';
 
-		if (uvValue <= 2) {
+		if (uvValue <= 2.9) {
 			category = 'Low';
 			color = '#4bc67d'; // Green
-		} else if (uvValue <= 5) {
+		} else if (uvValue <= 5.9) {
 			category = 'Moderate';
 			color = '#f1c40f'; // Yellow
-		} else if (uvValue <= 7) {
+		} else if (uvValue <= 7.9) {
 			category = 'High';
 			color = '#e67e22'; // Orange
-		} else if (uvValue <= 10) {
+		} else if (uvValue <= 10.9) {
 			category = 'Very High';
 			color = '#b94a48'; // Red
 		} else {
@@ -169,13 +186,48 @@ function updateUVIndex(uvValue) {
 		}
 
 		uvSummaryElement.textContent = category;
-		uvSummaryElement.style.color = color;
-		uvSummaryElement.style.fontWeight = 'bold';
 	} else {
 		// Handle case where UV data is not available
 		uvNumberElement.textContent = 'N/A';
 		uvSummaryElement.textContent = 'Not Available';
 		uvSummaryElement.style.color = '#6c757d';
 		rangeSlider.value = 0;
+	}
+}
+
+// Calculate and display local time for the city
+function updateLocalTime(timezoneOffset) {
+	const localTimeElement = document.getElementById('localTime');
+
+	if (timezoneOffset !== undefined && timezoneOffset !== null) {
+		// Get current UTC time
+		const now = new Date();
+
+		// Calculate local time by adding timezone offset (in seconds)
+		const localTime = new Date(now.getTime() + (timezoneOffset * 1000));
+
+		// Format the time
+		const timeOptions = {
+			hour: 'numeric',
+			minute: '2-digit',
+			hour12: true,
+			timeZone: 'UTC'
+		};
+
+		const dateOptions = {
+			month: 'short',
+			day: 'numeric',
+			timeZone: 'UTC'
+		};
+
+		// Format time and date separately to match user's preferred format
+		const timeString = localTime.toLocaleTimeString('en-US', timeOptions);
+		const dateString = localTime.toLocaleDateString('en-US', dateOptions);
+
+		localTimeElement.textContent = `${timeString} ${dateString}`;
+		localTimeElement.classList.remove('d-none');
+	} else {
+		localTimeElement.textContent = 'Local time unavailable';
+		localTimeElement.classList.add('text-muted');
 	}
 }
