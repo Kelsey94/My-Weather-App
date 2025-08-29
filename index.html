@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!--User searches for a city (e.g., "London").
-Geo API fetches matching cities and populates the dropdown with <div> elements.
-User clicks a city option:
-Input field updates with the city name.
-Dropdown hides.
-Weather data is fetched and displayed (temperature, description, icon).
-Temperature toggle works to switch between °C and °F.
-If only one city matches, it skips the dropdown and directly shows the weather. -->
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,7 +42,6 @@ If only one city matches, it skips the dropdown and directly shows the weather. 
 
         <main>
             <div class="container text-center text-nowrap">
-
                 <!--Weather Card-->
                 <div class="card col-10 col-lg-6 mx-auto">
                     <!--Card Header-->
@@ -83,7 +73,6 @@ If only one city matches, it skips the dropdown and directly shows the weather. 
                                             aria-label="Search"
                                             autocomplete="on"
                                             autocapitalize="on"
-                                            autocorrect="on"
                                             >
                                         <button
                                             class="btn btn-search bg-primary mx-2 rounded-5 text-white px-3 me-0"
@@ -100,8 +89,7 @@ If only one city matches, it skips the dropdown and directly shows the weather. 
                     </div>
 
                     <!--Card Body: Weather Data-->
-                    <div
-                        class="card-body d-flex flex-column justify-content-center flex-xl-row justify-content-lg-evenly align-items-center position-relative">
+                    <div class="card-body d-flex flex-column justify-content-center flex-xl-row justify-content-lg-evenly align-items-center position-relative">
                         <!--Celcius / Farenheit Toggle-->
                         <div class="position-absolute top-0 end-0 pe-2 pt-2">
                             <div class="d-flex flex-row justify-content-start">
@@ -120,14 +108,17 @@ If only one city matches, it skips the dropdown and directly shows the weather. 
                             </div>
                         </div>
 
-                        <div
-                            class="d-flex flex-column justify-content-center align-items-center">
+                        <!--Weather Data-->
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <!--Empty Weather Data Message-->
                             <p id="emptyWeatherMsg" class="w-50 text-wrap py-5 mt-4 text-secondary">Enter a city name to get the current weather</p>
                             <!--City Name-->
                             <p class="city-display"
                                 id="cityDisplay"></p>
                             <!--Weather Description-->
-                            <p class="fs-6 text-center fw-lighter" id="currentWeatherDescription"></p>
+                            <p class="fs-6 text-center fw-lighter mb-0" id="currentWeatherDescription"></p>
+                            <!--Feels Like Temp-->
+                            <p class="fs-6 text-center fw-lighter" id="feelsLikeTemp"></p>
                         </div>
                         <div
                             class="d-flex flex-column flex-md-row justify-content-center align-items-center column-gap-5">
@@ -140,143 +131,56 @@ If only one city matches, it skips the dropdown and directly shows the weather. 
                             </p>
                         </div> 
                     </div>
-                    <!--More Details Button-->
-                    <p class="text-secondary">Details</p>
-                    <svg id="accordionButton" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="lightgrey" class="bi bi-chevron-compact-down text-center mx-auto" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67" />
-                    </svg>
-                    <!--More Details-->
-                    <div id="accordionContent" class="d-none card-footer bg-dark-subtle">
 
+                    <!--More Weather Details Menu-->
+                    <div class="card-body my-tooltip p-0 m-0">
+                        <!--Down Arrow-->
+                        <svg id="accordionButtonDown" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="lightgrey" class="bi bi-chevron-compact-down m-0 p-0" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67" />
+                        </svg>
+
+                        <!--Up Arrow-->
+                        <svg id="accordionButtonUp" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="lightgrey" class="d-none bi bi-chevron-compact-up m-0 p-0" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894z"/>
+                        </svg>
                     </div>
-                
-                </div>
-                
-
-                
-
-
-                    <div class="card-footer d-none">
-                        
-                        <h2 class="display-6">5 Day Forecast</h2>
-                        <div class="d-lg-flex justify-content-evenly">
-
-
-                            <div class="card d-flex flex-column">
-                                <p class="card-header">Saturday</p>
-                                <i class="wi wi-day-sunny"></i>
-                                <p>30&deg;</p>
-                            </div>
-
-                            <div class="card d-flex flex-column">
-                                <p class="card-header">Sunday</p>
-                                <i class="wi wi-day-sunny"></i>
-                                <p>30&deg;</p>
-                            </div>
-
-                            <div class="card d-flex flex-column">
-                                <p class="card-header">Monday</p>
-                                <i class="wi wi-day-sunny"></i>
-                                <p>30&deg;</p>
-                            </div>
-
-                            <div class="card d-flex flex-column">
-                                <p class="card-header">Tuesday</p>
-                                <i class="wi wi-day-sunny"></i>
-                                <p>30&deg;</p>
-                            </div>
-
-                            <div class="card d-flex flex-column">
-                                <p class="card-header">Wednesday</p>
-                                <i class="wi wi-day-sunny"></i>
-                                <p>30&deg;</p>
-                            </div>
-
-                        </div>
-                    </div>
-
-                <!--Saved Weather Card-->
-                <div class="card d-none col-10 col-lg-6 mx-auto">
-                    <div
-                        class="card-body d-flex flex-column justify-content-center flex-xl-row justify-content-lg-evenly align-items-center position-relative mb-5">
-                        <!--Celcius / Farenheit Toggle-->
-                        <div class="position-absolute top-0 end-0 pe-2 pt-2">
-                            <div class="d-flex flex-row justify-content-start">
-                                <!--Celcius Label-->
-                                <div class="pe-1">&deg;C</div>
-                                <!--Toggle-->
-                                <div class="form-switch">
-                                    <input class="form-check-input"
-                                        type="checkbox" role="switch"
-                                        id="switchCheckDefault">
-                                    <label class="form-check-label"
-                                        for="switchCheckDefault"></label>
-                                </div>
-                                <!--Farenheit Label-->
-                                <div class>&deg;F</div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="d-flex flex-column justify-content-center align-items-center">
-                            <p id="emptyWeatherMsg" class="w-50 text-wrap py-5 mt-4 text-secondary"></p>
-                            <!--City Name-->
-                            <p class="city-display"
-                                id="cityDisplay"></p>
-                            <!--Weather Description-->
-                            <p class="fs-6 text-center fw-lighter" id="currentWeatherDescription"></p>
-                        </div>
-                        <div
-                            class="d-flex flex-column flex-md-row justify-content-center align-items-center column-gap-5">
-                            <!--Weather Icon-->
-                            <i class="wi display-1"
-                                id="currentWeatherIcon"></i>
-                            <!--Current Temperature-->
-                            <p class="display-4">
-                                <span id="currentWeatherNumber"></span></p>
-                        </div>
-                    </div>
-                </div>
                     
-                    <!--TODO: FEATURE: 5 day forecast:
 
-                <div class="card-footer">
-                    <h2 class="display-6">5 Day Forecast</h2>
-                    <div class="d-lg-flex justify-content-evenly">
+                    <div id="moreDetail" class="card-footer bg-dark-subtle h-25 "> <!--Add Back d-none after-->
 
-
-                        <div class="card d-flex flex-column">
-                            <p class="card-header">Saturday</p>
-                            <i class="wi wi-day-sunny"></i>
-                            <p>30&deg;</p>
+                            <!--UV Index Container-->
+                            <div class="d-flex flex-row gap-3 justify-content-center align-items-start">
+                                <!--UV Index Label-->
+                                <p id="uv_index" class="pt-2 fs-5 pe-2">
+                                    UV Index:
+                                    <span id="uv-index-num" class="uv-index-num">
+                                        <!--UV Index Number Goes Here-->
+                                        3
+                                    </span>
+                                </p>
+                                <!--UV Index Slider-->
+                                <div class="slider d-flex flex-column justify-content-start">
+                                <!--UV Index Slider Label: Low, Moderate, High, Very High, Extreme-->
+                                    <label for="uv_index" class="uv-index-summary text-secondary">Moderate</label>
+                                    <input
+                                        class="range-slider"
+                                        id="uv-index-range"
+                                        type="range"
+                                        name="uv-index-num"
+                                        min="1"
+                                        max="13"
+                                        value="3">
+                                </div>
+                            </div>
+                            
+                        <h2 class="d-none fs-5 fw-normal">3-Day Forecast</h2>
+                        <div id="forecast" class="row justify-content-evenly">
+                            <div class="m-1 bg-light border border-dark-subtle col-3 rounded-4">Hi</div>
+                            <div class="m-1 bg-light border border-dark-subtle col-3 rounded-4">Hi</div>
+                            <div class="m-1 bg-light border border-dark-subtle col-3 rounded-4">Hi</div>
                         </div>
-
-                        <div class="card d-flex flex-column">
-                            <p class="card-header">Sunday</p>
-                            <i class="wi wi-day-sunny"></i>
-                            <p>30&deg;</p>
-                        </div>
-
-                        <div class="card d-flex flex-column">
-                            <p class="card-header">Monday</p>
-                            <i class="wi wi-day-sunny"></i>
-                            <p>30&deg;</p>
-                        </div>
-
-                        <div class="card d-flex flex-column">
-                            <p class="card-header">Tuesday</p>
-                            <i class="wi wi-day-sunny"></i>
-                            <p>30&deg;</p>
-                        </div>
-
-                        <div class="card d-flex flex-column">
-                            <p class="card-header">Wednesday</p>
-                            <i class="wi wi-day-sunny"></i>
-                            <p>30&deg;</p>
-                        </div>
-
                     </div>
-                </div>-->
+                </div> 
             </div>
         </main>
 
