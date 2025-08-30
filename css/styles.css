@@ -45,7 +45,7 @@ body {
 	background-color: white;
 	border: 1px solid #c9c9c9;
 	border-radius: 50px;
-	box-shadow: inset 1px 1px 7px 3px rgba(172, 171, 171, 0.4);
+	box-shadow: inset 1px 1px 7px 3px rgba(172, 171, 171, 0.1);
 	padding: 10px;
 	max-width: 500px;
 	width: 100%;

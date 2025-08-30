@@ -183,26 +183,10 @@
                                 </p>
                                 <!--Humidity Slider-->
                                 <div class="slider">
-    
-                                <!--Range of humidex: Scale of comfort:
-                                0 to 19:  = Dry
-                                20 to 29: = Comfortable
-                                30 to 39: = Humid
-                                40 to 45: = Very Humid
-                                Above 45: = Extreme
-                                -->
-                                <!--The standard Humidex formula used by Environment and Climate Change Canada is:
-
-                                Humidex = (air temperature) + h
-                                
-                                Where
-                                h = (0.5555)*(e - 10.0);
-                                e = vapour pressure in hPa (mbar), given by:
-                                e = 6.11 * exp[5417.7530 * ( (1/273.15) - (1/dewpoint) ) ]
-                                exp = 2.71828
-                                
-                                Dewpoint is expressed in kelvins(K) (temperature in K = temperature in °C + 273.15) and 5417.7530 is a rounded constant based on the molecular weight of water, latent heat of evaporation, and the universal gas constant.-->
-
+                                <!--Range of humidity/  Scale of comfort:
+                                0 to 29: Dry
+                                30-59: Comfortable
+                                60-100: Very Humid-->
                                     <label for="humidity" id="humidity-summary" class="detail-summary"></label>
                                     <input
                                         class="range-slider"

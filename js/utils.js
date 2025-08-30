@@ -27,3 +27,15 @@ const getWeatherIconClass = (id, icon) => {
   //The class for the weather icon is constructed by combining "wi "(weather icons) plus the prefix, plus the weather condition ID
 	return 'wi ' + prefix + id;
 };
+
+
+//A function that converts relative humidity to Celsius
+const convertHumidityToCelsius = (humidity) => {
+  if (typeof humidity !== 'number') {
+    console.error('Invalid humidity value:', humidity);
+    return null;
+  }
+  // The formula to convert relative humidity to Celsius (humidex)
+	
+  return (humidity - 32) * 5 / 9;
+};
