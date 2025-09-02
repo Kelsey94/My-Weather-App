@@ -56,9 +56,13 @@ window.addEventListener("load", async () => {
 		// Hide empty weather message
 		const emptyWeatherMsg = document.getElementById("emptyWeatherMsg");
 		emptyWeatherMsg.classList.add("visually-hidden");
+
 		// Fetch and display UV Index
 		const uvValue = await fetchUVIndex(lastData.coord.lat, lastData.coord.lon);
 		updateUVIndex(uvValue);
+		//Fetch and display Humidity
+		const humidityValue = await fetchHumidity(lastData.coord.lat, lastData.coord.lon);
+		updateHumidityDisplay(humidityValue);
 	}
 });
 
@@ -67,6 +71,10 @@ window.addEventListener("load", async () => {
 //Event Listener for City Search
 cityForm.addEventListener("submit", (event) => {
 	event.preventDefault();
+	if (cityInputElement.value.trim().length === 0) {
+		alert("Please enter a city name.");
+		return;
+	}
 	getCityObjectData();
 });
 

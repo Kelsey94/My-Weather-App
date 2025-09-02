@@ -71,9 +71,11 @@ const getCityObjectData = async () => {
 //Fetch weather data
 async function fetchWeather(lat, lon) {
 	try {
-		const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+		const response = await fetch(
+			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
+		);
 		if (!response.ok) {
-			throw new Error('Weather data not found');
+			throw new Error("Weather data not found");
 		}
 		const data = await response.json();
 		console.log(data);
@@ -86,39 +88,45 @@ async function fetchWeather(lat, lon) {
 		// Save to localStorage with timezone (no timestamp needed)
 		const dataToStore = {
 			...data,
-			timezone: data.timezone
+			timezone: data.timezone,
 		};
-		localStorage.setItem('weatherData', JSON.stringify(dataToStore));
+		localStorage.setItem("weatherData", JSON.stringify(dataToStore));
 
 		// Update DOM
 		cityDisplayElement.textContent = data.name;
-    const isFahrenheit = tempUnitToggle.checked;
+		const isFahrenheit = tempUnitToggle.checked;
 		const description = data.weather[0].description;
-		const capitalizedDescription = description.charAt(0).toUpperCase() + description.slice(1);
+		const capitalizedDescription =
+			description.charAt(0).toUpperCase() + description.slice(1);
 		currentWeatherDescription.textContent = capitalizedDescription;
 
 		// Update local time for the city
 		updateLocalTime(data.timezone);
-		
 
-    //Feels-Like Temp
-		const feelsLikeTemp = document.getElementById('feelsLikeTemp');
-    const feels_likeK = data.main.feels_like;
-    //Convert from Kelvin to Celsius
-    const feels_likeC = feels_likeK - 273.15;
-    //If the temperature unit is Fahrenheit, convert to Fahrenheit, otherwise keep Celsius
-    const feels_like = isFahrenheit ? (feels_likeC * 9/5 + 32) : feels_likeC;
-    feelsLikeTemp.innerHTML = `${Math.round(feels_like)}°${isFahrenheit ? 'F' : 'C'}`;
+		//Feels-Like Temp
+		const feelsLikeTemp = document.getElementById("feelsLikeTemp");
+		const feels_likeK = data.main.feels_like;
+		//Convert from Kelvin to Celsius
+		const feels_likeC = feels_likeK - 273.15;
+		//If the temperature unit is Fahrenheit, convert to Fahrenheit, otherwise keep Celsius
+		const feels_like = isFahrenheit ? (feels_likeC * 9) / 5 + 32 : feels_likeC;
+		feelsLikeTemp.innerHTML = `${Math.round(feels_like)}°${
+			isFahrenheit ? "F" : "C"
+		}`;
 
-    //Current Temp
+		//Current Temp
 		const tempK = data.main.temp;
 		const tempC = tempK - 273.15;
-		const temp = isFahrenheit ? (tempC * 9/5 + 32) : tempC;
-		currentWeatherNumber.textContent = Math.round(temp) + '°' + (isFahrenheit ? 'F' : 'C');
-		const iconClass = getWeatherIconClass(data.weather[0].id, data.weather[0].icon);
+		const temp = isFahrenheit ? (tempC * 9) / 5 + 32 : tempC;
+		currentWeatherNumber.textContent =
+			Math.round(temp) + "°" + (isFahrenheit ? "F" : "C");
+		const iconClass = getWeatherIconClass(
+			data.weather[0].id,
+			data.weather[0].icon
+		);
 		currentWeatherIcon.className = iconClass;
 		dynamicTextSize();
-		
+
 		// Hide empty weather message after successful data load
 		const emptyWeatherMsg = document.getElementById("emptyWeatherMsg");
 		emptyWeatherMsg.classList.add("visually-hidden");
@@ -126,12 +134,59 @@ async function fetchWeather(lat, lon) {
 		// Fetch and display UV Index
 		const uvValue = await fetchUVIndex(lat, lon);
 		updateUVIndex(uvValue);
+
+		//Fetch and display relative humidity
+		const humidityValue = await fetchHumidity(lat, lon);
+		updateHumidityDisplay(humidityValue);
+
+		// Fetch and display 3 day forecast
+		const forecastData = await fetch3DayForecast(lat, lon);
+		updateForecast(forecastData);
+
 	} catch (error) {
 		console.error(error);
-		alert('Error fetching weather data: ' + error.message);
+		alert("Error fetching weather data: " + error.message);
+
 		// Show empty weather message on error
 		const emptyWeatherMsg = document.getElementById("emptyWeatherMsg");
 		emptyWeatherMsg.classList.remove("visually-hidden");
+	}
+}
+
+// Calculate and display local time for the city
+function updateLocalTime(timezoneOffset) {
+	const localTimeElement = document.getElementById('localTime');
+
+	if (timezoneOffset !== undefined && timezoneOffset !== null) {
+		// Get current UTC time
+		const now = new Date();
+
+		// Calculate local time by adding timezone offset (in seconds)
+		const localTime = new Date(now.getTime() + (timezoneOffset * 1000));
+
+		// Format the time
+		const timeOptions = {
+			hour: 'numeric',
+			minute: '2-digit',
+			hour12: true,
+			timeZone: 'UTC'
+		};
+
+		const dateOptions = {
+			month: 'short',
+			day: 'numeric',
+			timeZone: 'UTC'
+		};
+
+		// Format time and date separately to match user's preferred format
+		const timeString = localTime.toLocaleTimeString('en-US', timeOptions);
+		const dateString = localTime.toLocaleDateString('en-US', dateOptions);
+
+		localTimeElement.textContent = `${timeString} ${dateString}`;
+		localTimeElement.classList.remove('d-none');
+	} else {
+		localTimeElement.textContent = 'Local time unavailable';
+		localTimeElement.classList.add('text-muted');
 	}
 }
 
@@ -155,14 +210,14 @@ async function fetchUVIndex(lat, lon) {
 function updateUVIndex(uvValue) {
 	const uvNumberElement = document.getElementById('uv-index-num');
 	const uvSummaryElement = document.getElementById('uv-index-summary');
-	const rangeSlider = document.getElementById('uv-index-range');
+	const uvRangeSlider = document.getElementById('uv-index-range');
 
 	if (uvValue !== null && uvValue !== undefined) {
 		// Update the UV Index number rounded to the nearest integer
 		uvNumberElement.textContent = Math.round(uvValue);
 
 		// Update slider value
-		rangeSlider.value = Math.min(uvValue, 13); // Cap at 13 for display
+		uvRangeSlider.value = Math.min(uvValue, 13); // Cap at 13 for display
 
 		// Update summary text based on UV Index level
 		let category = '';
@@ -191,7 +246,107 @@ function updateUVIndex(uvValue) {
 		uvNumberElement.textContent = 'N/A';
 		uvSummaryElement.textContent = 'Not Available';
 		uvSummaryElement.style.color = '#6c757d';
-		rangeSlider.value = 0;
+		uvRangeSlider.value = 0;
+	}
+}
+
+//Fetch Relative Humidity
+async function fetchHumidity(lat, lon) {
+	try {
+		const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+		if (!response.ok) {
+			throw new Error('Humidity data not found');
+		}
+		const data = await response.json();
+		console.log('Humidity data:', data);
+		return data.main.humidity;
+	} catch (error) {
+		console.error('Error fetching humidity:', error);
+		return null;
+	}
+}
+
+//Update Relative Humidity display and slider
+function updateHumidityDisplay(humidityValue) {
+	const humidityNumberElement = document.getElementById('humidity-num');
+	const humiditySummaryElement = document.getElementById('humidity-summary');
+	const humidityRangeSlider = document.getElementById('humidity-range');
+
+	if (humidityValue !== null && humidityValue !== undefined) {
+		// Update the humidity number
+		humidityNumberElement.textContent = `${humidityValue}%`;
+
+		// Update slider value
+		humidityRangeSlider.value = Math.min(humidityValue, 100); // Cap at 100 for display
+
+		// Update summary text based on humidity level
+		let category = '';
+		let color = '';
+
+		if (humidityValue <= 30) {
+			category = 'Low';
+		} else if (humidityValue <= 60) {
+			category = 'Moderate';
+		} else if (humidityValue <= 80) {
+			category = 'High';
+		} else if (humidityValue > 100) {
+			category = 'Very High';
+			color = '#b94a48'; // Red
+		}
+
+		humiditySummaryElement.textContent = category;
+	} else {
+		// Handle case where humidity data is not available
+		humidityNumberElement.textContent = 'N/A';
+		humiditySummaryElement.textContent = 'Not Available';
+		humiditySummaryElement.style.color = '#6c757d';
+		humidityRangeSlider.value = 0;
+	}
+}
+
+//Fetch 3 day Forecast
+async function fetch3DayForecast(lat, lon) {
+	try {
+		const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+		if (!response.ok) {
+			throw new Error('3 day forecast data not found');
+		}
+		const data = await response.json();
+		console.log('3 day forecast data:', data);
+		return data.list;
+	} catch (error) {
+		console.error('Error fetching 3 day forecast:', error);
+		return null;
+	}
+}
+
+//Update Forecast
+function updateForecast(forecastData) {
+	const forecastContainer = document.getElementById('forecast');
+	forecastContainer.innerHTML = ''; // Clear previous forecast
+
+	if (forecastData && Array.isArray(forecastData)) {
+		forecastData.forEach((item) => {
+			const forecastItem = document.createElement('div');
+			forecastItem.classList.add('forecast-item');
+
+			// Format date
+			const date = new Date(item.dt * 1000);
+			const dateString = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+			// Get weather icon class
+			const iconClass = getWeatherIconClass(item.weather[0].id, item.weather[0].icon);
+
+			forecastItem.innerHTML = `
+				<div class="forecast-date">${dateString}</div>
+				<div class="forecast-icon ${iconClass}"></div>
+				<div class="forecast-temp">${Math.round(item.main.temp - 273.15)}°C</div>
+			`;
+
+			forecastContainer.appendChild(forecastItem);
+		});
+	} else {
+		forecastContainer.innerHTML = '<p>No forecast data available</p>';
 	}
 }
 

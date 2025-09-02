@@ -190,7 +190,7 @@ body {
 
 .detail-summary {
 	text-align: center;
-	padding: 0.5rem 0;
+	padding: 0.7rem 0;
 	margin: 0;
 	height: 10px;
 	font-size: 0.9rem;
@@ -233,7 +233,8 @@ body {
 	height: 10px;
 	border-radius: 3px;
 	background: #fff;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 /* Local Time Styling */

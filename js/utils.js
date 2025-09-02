@@ -29,13 +29,3 @@ const getWeatherIconClass = (id, icon) => {
 };
 
 
-//A function that converts relative humidity to Celsius
-const convertHumidityToCelsius = (humidity) => {
-  if (typeof humidity !== 'number') {
-    console.error('Invalid humidity value:', humidity);
-    return null;
-  }
-  // The formula to convert relative humidity to Celsius (humidex)
-	
-  return (humidity - 32) * 5 / 9;
-};
