@@ -7,7 +7,7 @@ const getCityObjectData = async () => {
 	//Geo-coding API: Direct Geo-coding: Takes a city name, and returns an array of cities for the user to choose from if there are multiple matches.
 	try {
 		const response = await fetch(
-			`http://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&limit=3&appid=${apiKey}`
+			`https://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&limit=3&appid=${apiKey}`
 		);
 		if (!response.ok) {
 			throw new Error("City not found");
