@@ -110,7 +110,7 @@ async function fetchWeather(lat, lon) {
 		const feels_likeC = feels_likeK - 273.15;
 		//If the temperature unit is Fahrenheit, convert to Fahrenheit, otherwise keep Celsius
 		const feels_like = isFahrenheit ? (feels_likeC * 9) / 5 + 32 : feels_likeC;
-		feelsLikeTemp.innerHTML = `${Math.round(feels_like)}°${
+		feelsLikeTemp.innerHTML = `Feels Like:${Math.round(feels_like)}°${
 			isFahrenheit ? "F" : "C"
 		}`;
 
@@ -221,23 +221,18 @@ function updateUVIndex(uvValue) {
 
 		// Update summary text based on UV Index level
 		let category = '';
-		let color = '';
 
 		if (uvValue <= 2.9) {
 			category = 'Low';
-			color = '#4bc67d'; // Green
+
 		} else if (uvValue <= 5.9) {
 			category = 'Moderate';
-			color = '#f1c40f'; // Yellow
 		} else if (uvValue <= 7.9) {
 			category = 'High';
-			color = '#e67e22'; // Orange
 		} else if (uvValue <= 10.9) {
 			category = 'Very High';
-			color = '#b94a48'; // Red
 		} else {
 			category = 'Extreme';
-			color = '#8e44ad'; // Purple
 		}
 
 		uvSummaryElement.textContent = category;
