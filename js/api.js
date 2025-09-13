@@ -133,7 +133,9 @@ async function fetchWeather(lat, lon) {
 
 		// Fetch and display UV Index
 		const uvValue = await fetchUVIndex(lat, lon);
-		updateUVIndex(uvValue);
+		// Determine if it's night by checking weather icon (ends with 'n')
+		const isNight = data.weather[0].icon.endsWith('n');
+		updateUVIndex(uvValue, isNight);
 
 		//Fetch and display relative humidity
 		const humidityValue = await fetchHumidity(lat, lon);
@@ -207,41 +209,43 @@ async function fetchUVIndex(lat, lon) {
 }
 
 // Update UV Index display and slider
-function updateUVIndex(uvValue) {
-	const uvNumberElement = document.getElementById('uv-index-num');
-	const uvSummaryElement = document.getElementById('uv-index-summary');
-	const uvRangeSlider = document.getElementById('uv-index-range');
+function updateUVIndex(uvValue, isNight = false) {
+    const uvNumberElement = document.getElementById('uv-index-num');
+    const uvSummaryElement = document.getElementById('uv-index-summary');
+    const uvRangeSlider = document.getElementById('uv-index-range');
 
-	if (uvValue !== null && uvValue !== undefined) {
-		// Update the UV Index number rounded to the nearest integer
-		uvNumberElement.textContent = Math.round(uvValue);
-
-		// Update slider value
-		uvRangeSlider.value = Math.min(uvValue, 13); // Cap at 13 for display
-
-		// Update summary text based on UV Index level
-		let category = '';
-
-		if (uvValue <= 2.9) {
-			category = 'Low';
-
-		} else if (uvValue <= 5.9) {
-			category = 'Moderate';
-		} else if (uvValue <= 7.9) {
-			category = 'High';
-		} else if (uvValue <= 10.9) {
-			category = 'Very High';
-		} else {
-			category = 'Extreme';
-		}
-		uvSummaryElement.textContent = category;
-	} else {
-		// Handle case where UV data is not available
-		uvNumberElement.textContent = 'N/A';
-		uvSummaryElement.textContent = 'Not Available';
-		uvSummaryElement.style.color = '#6c757d';
-		uvRangeSlider.value = 0;
-	}
+    if (uvValue !== null && uvValue !== undefined) {
+        if (isNight) {
+            uvNumberElement.textContent = 0;
+            uvRangeSlider.value = 0;
+            uvSummaryElement.textContent = 'Night';
+        } else {
+            // Update the UV Index number rounded to the nearest integer
+            uvNumberElement.textContent = Math.round(uvValue);
+            // Update slider value
+            uvRangeSlider.value = Math.min(uvValue, 13); // Cap at 13 for display
+            // Update summary text based on UV Index level
+            let category = '';
+            if (uvValue <= 2.9) {
+                category = 'Low';
+            } else if (uvValue <= 5.9) {
+                category = 'Moderate';
+            } else if (uvValue <= 7.9) {
+                category = 'High';
+            } else if (uvValue <= 10.9) {
+                category = 'Very High';
+            } else {
+                category = 'Extreme';
+            }
+            uvSummaryElement.textContent = category;
+        }
+    } else {
+        // Handle case where UV data is not available
+        uvNumberElement.textContent = 'N/A';
+        uvSummaryElement.textContent = 'Not Available';
+        uvSummaryElement.style.color = '#6c757d';
+        uvRangeSlider.value = 0;
+    }
 }
 
 //Fetch Relative Humidity

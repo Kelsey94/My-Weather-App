@@ -4,9 +4,9 @@
 const cityForm = document.getElementById("citySearchForm");
 const cityInputElement = document.getElementById("citySearch");
 const cityDisplayElement = document.getElementById("cityDisplay");
-const currentWeatherDescription = document.getElementById(
-	"currentWeatherDescription"
-);
+const localTimeElement = document.getElementById("localTime");
+const currentWeatherDescription = document.getElementById("currentWeatherDescription");
+const feelsLikeTemp = document.getElementById("feelsLikeTemp");
 const currentWeatherIcon = document.getElementById("currentWeatherIcon");
 const currentWeatherNumber = document.getElementById("currentWeatherNumber");
 const accordionButtonDown = document.getElementById("accordionButtonDown");
@@ -83,7 +83,9 @@ cityInputElement.addEventListener("input", () => {
 	if (!cityInputElement.value.trim()) {
 		// Clear weather data and show empty message
 		cityDisplayElement.textContent = "";
+		localTimeElement.textContent = "";
 		currentWeatherDescription.textContent = "";
+		feelsLikeTemp.textContent = "";
 		currentWeatherNumber.textContent = "";
 		currentWeatherIcon.className = "wi display-1";
 		lastData = null;
