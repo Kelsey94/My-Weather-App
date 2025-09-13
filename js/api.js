@@ -60,13 +60,18 @@ const getCityObjectData = async () => {
 					fetchWeather(option.dataset.lat, option.dataset.lon);
 				});
 
-				//If the user clicks outside the dropdown, close it
+				//If the user clicks or taps outside the dropdown, close it
 				window.addEventListener('click', (event) => {
 					if (!event.target.matches('.dropdown, .dropdown *') && !event.target.matches('#cityInput')) {
 						dropdown.classList.add('visually-hidden');
 					}
 				});
-				
+				window.addEventListener('touchstart', (event) => {
+					if (!event.target.matches('.dropdown, .dropdown *') && !event.target.matches('#cityInput')) {
+						dropdown.classList.add('visually-hidden');
+					}
+				});
+
 
 
 				cityList.appendChild(option);

@@ -11,7 +11,6 @@ const currentWeatherIcon = document.getElementById("currentWeatherIcon");
 const currentWeatherNumber = document.getElementById("currentWeatherNumber");
 const accordionButtonDown = document.getElementById("accordionButtonDown");
 const accordionButtonUp = document.getElementById("accordionButtonUp");
-
 // Global variable for last weather data
 let lastData = null;
 
