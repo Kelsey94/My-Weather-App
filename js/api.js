@@ -32,14 +32,14 @@ const getCityObjectData = async () => {
 			const city = cities[0];
 			cityInputElement.value = city["data.name"];
 			const dropdown = document.querySelector(".dropdown");
-			dropdown.classList.add("d-none");
+			dropdown.classList.add("visually-hidden");
 			fetchWeather(city["data.lat"], city["data.lon"]);
 		}
 		// If there is more than one city, show the dropdown
 		if (cities.length > 1) {
 			const dropdown = document.querySelector(".dropdown");
 			const cityList = document.getElementById("cityList");
-			dropdown.classList.remove("d-none");
+			dropdown.classList.remove("visually-hidden");
 			cityList.innerHTML = ""; // Clear existing content
 			cities.forEach((city) => {
 				const option = document.createElement("div");
@@ -56,9 +56,19 @@ const getCityObjectData = async () => {
 				option.addEventListener('click', () => {
 					cityInputElement.value = option.dataset.name;
 					const dropdown = document.querySelector(".dropdown");
-					dropdown.classList.add("d-none");
+					dropdown.classList.add("visually-hidden");
 					fetchWeather(option.dataset.lat, option.dataset.lon);
 				});
+
+				//If the user clicks outside the dropdown, close it
+				window.addEventListener('click', (event) => {
+					if (!event.target.matches('.dropdown, .dropdown *') && !event.target.matches('#cityInput')) {
+						dropdown.classList.add('visually-hidden');
+					}
+				});
+				
+
+
 				cityList.appendChild(option);
 			});
 		}
