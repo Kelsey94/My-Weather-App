@@ -234,7 +234,6 @@ function updateUVIndex(uvValue) {
 		} else {
 			category = 'Extreme';
 		}
-
 		uvSummaryElement.textContent = category;
 	} else {
 		// Handle case where UV data is not available
@@ -276,7 +275,6 @@ function updateHumidityDisplay(humidityValue) {
 
 		// Update summary text based on humidity level
 		let category = '';
-		let color = '';
 
 		if (humidityValue <= 30) {
 			category = 'Low';
@@ -284,11 +282,9 @@ function updateHumidityDisplay(humidityValue) {
 			category = 'Moderate';
 		} else if (humidityValue <= 80) {
 			category = 'High';
-		} else if (humidityValue > 100) {
+		} else if (humidityValue > 80) {
 			category = 'Very High';
-			color = '#b94a48'; // Red
 		}
-
 		humiditySummaryElement.textContent = category;
 	} else {
 		// Handle case where humidity data is not available
