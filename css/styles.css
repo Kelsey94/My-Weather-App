@@ -3,6 +3,19 @@
 body {
 	font-family: "M PLUS Rounded 1c", sans-serif;
 	background: linear-gradient(to right, #667eea, #764ba2);
+	max-width: 100vw;
+	max-height: 100vh;
+	overflow: hidden;
+}
+
+body .day{
+	background: linear-gradient(to right, #667eea, #764ba2);
+	color: white;
+}
+
+body .night{
+	background: linear-gradient(to right, #232526, #1c1c1c);
+	color: white;
 }
 
 /*Fonts*/
@@ -39,6 +52,10 @@ body {
 }
 
 /*Main*/
+
+.card{
+	min-width: 250px;
+}
 
 /*Search Bar*/
 .search-container {
@@ -107,9 +124,7 @@ body {
 }
 
 
-.card {
-	margin-top: 3rem;
-}
+
 
 .city-name {
 	max-width: 100%;
@@ -121,7 +136,7 @@ body {
 
 #currentWeatherIcon {
 	font-size: 6rem;
-	line-height: 2;
+	line-height: 1.5;
 }
 
 
@@ -186,6 +201,11 @@ body {
 	background: #eaeff2;
 	border-radius: 0.5rem 0.5rem 0 0;
 	margin-bottom: 0;
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 0.9rem;
 }
 
 .detail-summary {
@@ -215,6 +235,10 @@ body {
 	outline: none;
 	appearance: none;
 	margin: 0.5rem 0;
+	max-width: 90%;
+	width: 100%;
+	overflow: hidden;
+	
 }
 
 .range-slider::-webkit-slider-thumb {
