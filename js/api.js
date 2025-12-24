@@ -7,7 +7,7 @@ const getCityObjectData = async () => {
 	//Geo-coding API: Direct Geo-coding: Takes a city name, and returns an array of cities for the user to choose from if there are multiple matches.
 	try {
 		const response = await fetch(
-			`https://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&limit=3&appid=${apiKey}`
+			`/.netlify/functions/weather?endpoint=geo&cityInput=${cityInput}`
 		);
 		if (!response.ok) {
 			throw new Error("City not found");
@@ -87,7 +87,7 @@ const getCityObjectData = async () => {
 async function fetchWeather(lat, lon) {
 	try {
 		const response = await fetch(
-			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
+			`/.netlify/functions/weather?endpoint=current&lat=${lat}&lon=${lon}`
 		);
 		if (!response.ok) {
 			throw new Error("Weather data not found");
@@ -210,7 +210,7 @@ function updateLocalTime(timezoneOffset) {
 //Fetch UV Index data
 async function fetchUVIndex(lat, lon) {
 	try {
-		const response = await fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+		const response = await fetch(`/.netlify/functions/weather?endpoint=uvi&lat=${lat}&lon=${lon}`);
 		if (!response.ok) {
 			throw new Error('UV Index data not found');
 		}
@@ -266,9 +266,9 @@ function updateUVIndex(uvValue, isNight = false) {
 //Fetch Relative Humidity
 async function fetchHumidity(lat, lon) {
 	try {
-		const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+		const response = await fetch(`/.netlify/functions/weather?endpoint=current&lat=${lat}&lon=${lon}`);
 		if (!response.ok) {
-			throw new Error('Humidity data not found');
+			throw new Error('Weather data not found');
 		}
 		const data = await response.json();
 		console.log('Humidity data:', data);
@@ -317,7 +317,9 @@ function updateHumidityDisplay(humidityValue) {
 //Fetch 3 day Forecast
 async function fetch3DayForecast(lat, lon) {
 	try {
-		const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+		const response = await fetch(
+			`/.netlify/functions/weather?endpoint=forecast&lat=${lat}&lon=${lon}`
+		);
 		if (!response.ok) {
 			throw new Error('3 day forecast data not found');
 		}
