@@ -3,9 +3,6 @@
 body {
 	font-family: "M PLUS Rounded 1c", sans-serif;
 	background: linear-gradient(to right, #667eea, #764ba2);
-	max-width: 100vw;
-	max-height: 100vh;
-	overflow: hidden;
 }
 
 body .day{
@@ -16,6 +13,29 @@ body .day{
 body .night{
 	background: linear-gradient(to right, #232526, #1c1c1c);
 	color: white;
+}
+
+main {
+	min-height: 100vh;
+	margin: 4rem auto;
+
+}
+
+@media (min-width:400px) {
+	main {
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	
+}
+
+main div.card {
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+	/* Center the card on the page */
+	margin: 0 auto;
+	
 }
 
 /*Fonts*/
