@@ -17,7 +17,7 @@ body .night{
 
 main {
 	min-height: 100vh;
-	margin: 1rem auto;
+	margin: 0rem auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -249,7 +249,6 @@ main div.card {
 	outline: none;
 	appearance: none;
 	margin: 0.5rem 0;
-	max-width: 90%;
 	width: 100%;
 	overflow: hidden;
 	
