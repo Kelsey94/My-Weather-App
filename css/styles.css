@@ -17,7 +17,7 @@ body .night{
 
 main {
 	min-height: 100vh;
-	margin: 0rem auto;
+	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -26,9 +26,6 @@ main {
 
 main div.card {
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-	/* Center the card on the page */
-	margin: 0 auto;
-	
 }
 
 /*Fonts*/
