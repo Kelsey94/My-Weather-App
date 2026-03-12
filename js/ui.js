@@ -120,7 +120,7 @@ tempUnitToggle.addEventListener("change", () => {
 // Create tooltip element
 const tooltip = document.createElement("div");
 tooltip.className = "my-tooltip-text";
-tooltip.textContent = "Show more details";
+tooltip.textContent = "Collapse details";
 tooltip.style.cssText = `
     position: absolute;
     line-height: 0.5;
@@ -151,8 +151,9 @@ tooltipContainer.addEventListener("mouseleave", () => {
 });
 
 // Accordion functionality
-let isExpanded = false;
+let isExpanded = true;
 tooltipContainer.addEventListener("click", () => {
+	//Toggle the expanded state on each click
 	isExpanded = !isExpanded;
 
 	if (isExpanded) {
