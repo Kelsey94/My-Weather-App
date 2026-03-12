@@ -17,19 +17,12 @@ body .night{
 
 main {
 	min-height: 100vh;
-	margin: 4rem auto;
-
+	margin: 1rem auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
-@media (min-width:400px) {
-	main {
-		margin: 0 auto;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-	
-}
 
 main div.card {
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -226,6 +219,7 @@ main div.card {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	font-size: 0.9rem;
+	padding:0.5rem 0.5rem;
 }
 
 .detail-summary {
