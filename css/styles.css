@@ -141,6 +141,18 @@ main div.card {
 	color: #667eea;
 }
 
+.dropdown-content [role="option"] {
+	cursor: pointer;
+	padding: 0.5rem 0;
+}
+
+.dropdown-content [role="option"].city-option-active,
+.dropdown-content [role="option"]:hover {
+	background-color: #eef2ff;
+	color: #3344a8;
+	text-decoration: underline;
+}
+
 
 
 

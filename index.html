@@ -70,6 +70,11 @@
                                             type="search"
                                             placeholder="City Name"
                                             aria-label="Search by City Name"
+                                            role="combobox"
+                                            aria-autocomplete="list"
+                                            aria-controls="cityList"
+                                            aria-haspopup="listbox"
+                                            aria-expanded="false"
                                             autocomplete="on"
                                             autocapitalize="on"
                                             >
@@ -79,8 +84,8 @@
                                             aria-label="Submit City Search"
                                             >Search</button>
                                     </form>
-                                    <div class="dropdown visually-hidden">
-                                        <div id="cityList" class="dropdown-content">
+                                    <div class="dropdown visually-hidden" id="cityDropdown">
+                                        <div id="cityList" class="dropdown-content" role="listbox" aria-label="City search results">
                                             
                                         </div>
                                     </div>
@@ -216,13 +221,6 @@
                 </div> 
             <!-- </div> -->
         </main>
-
-        <!-- <div class="btn-add position-fixed bottom-0 end-0 p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#fff" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-              </svg>
-        </div> -->
     </body>
 
 </html>

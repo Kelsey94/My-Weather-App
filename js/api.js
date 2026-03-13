@@ -1,7 +1,119 @@
 // API functions
 
+const cityDropdown = document.getElementById("cityDropdown");
+const cityList = document.getElementById("cityList");
+let cityOptions = [];
+let activeCityOptionIndex = -1;
+let comboboxHandlersBound = false;
+
+function closeCityDropdown() {
+	if (!cityDropdown || !cityList) {
+		return;
+	}
+
+	cityDropdown.classList.add("visually-hidden");
+	cityInputElement.setAttribute("aria-expanded", "false");
+	cityInputElement.removeAttribute("aria-activedescendant");
+	cityList.innerHTML = "";
+	cityOptions = [];
+	activeCityOptionIndex = -1;
+}
+
+function openCityDropdown() {
+	if (!cityDropdown) {
+		return;
+	}
+
+	cityDropdown.classList.remove("visually-hidden");
+	cityInputElement.setAttribute("aria-expanded", "true");
+}
+
+function setActiveCityOption(nextIndex) {
+	if (!cityOptions.length) {
+		return;
+	}
+
+	if (nextIndex < 0) {
+		nextIndex = cityOptions.length - 1;
+	}
+	if (nextIndex >= cityOptions.length) {
+		nextIndex = 0;
+	}
+
+	cityOptions.forEach((option) => {
+		option.setAttribute("aria-selected", "false");
+		option.classList.remove("city-option-active");
+	});
+
+	activeCityOptionIndex = nextIndex;
+	const activeOption = cityOptions[activeCityOptionIndex];
+	activeOption.setAttribute("aria-selected", "true");
+	activeOption.classList.add("city-option-active");
+	cityInputElement.setAttribute("aria-activedescendant", activeOption.id);
+	activeOption.scrollIntoView({ block: "nearest" });
+}
+
+function selectCityOption(option) {
+	if (!option) {
+		return;
+	}
+
+	cityInputElement.value = option.dataset.name;
+	announceToScreenReader(`Loading weather for ${option.dataset.name}.`);
+	closeCityDropdown();
+	fetchWeather(option.dataset.lat, option.dataset.lon);
+}
+
+function bindCityComboboxHandlers() {
+	if (comboboxHandlersBound) {
+		return;
+	}
+
+	cityInputElement.addEventListener("keydown", (event) => {
+		if (!cityOptions.length || cityDropdown.classList.contains("visually-hidden")) {
+			return;
+		}
+
+		if (event.key === "ArrowDown") {
+			event.preventDefault();
+			setActiveCityOption(activeCityOptionIndex + 1);
+			return;
+		}
+
+		if (event.key === "ArrowUp") {
+			event.preventDefault();
+			setActiveCityOption(activeCityOptionIndex - 1);
+			return;
+		}
+
+		if (event.key === "Enter" && activeCityOptionIndex >= 0) {
+			event.preventDefault();
+			selectCityOption(cityOptions[activeCityOptionIndex]);
+			return;
+		}
+
+		if (event.key === "Escape") {
+			event.preventDefault();
+			closeCityDropdown();
+		}
+	});
+
+	document.addEventListener("click", (event) => {
+		if (!cityDropdown || !cityInputElement) {
+			return;
+		}
+
+		if (!cityDropdown.contains(event.target) && event.target !== cityInputElement) {
+			closeCityDropdown();
+		}
+	});
+
+	comboboxHandlersBound = true;
+}
+
 //Fetch city data
 const getCityObjectData = async () => {
+	bindCityComboboxHandlers();
 	const cityInput = cityInputElement.value;
 	announceToScreenReader(`Searching for ${cityInput}.`);
 	console.log(cityInput);
@@ -30,6 +142,7 @@ const getCityObjectData = async () => {
 
 		if (cities.length === 0) {
 			announceToScreenReader(`No matches found for ${cityInput}.`, { assertive: true });
+			closeCityDropdown();
 			alert("No matching cities found. Please try another search.");
 			return;
 		}
@@ -39,24 +152,26 @@ const getCityObjectData = async () => {
 			const city = cities[0];
 			announceToScreenReader(`Loading weather for ${city["data.name"]}.`);
 			cityInputElement.value = city["data.name"];
-			const dropdown = document.querySelector(".dropdown");
-			dropdown.classList.add("visually-hidden");
+			closeCityDropdown();
 			fetchWeather(city["data.lat"], city["data.lon"]);
 		}
 		// If there is more than one city, show the dropdown
 		if (cities.length > 1) {
-			const dropdown = document.querySelector(".dropdown");
-			const cityList = document.getElementById("cityList");
 			announceToScreenReader(
 				`Found ${cities.length} matches for ${cityInput}. Choose a city from the list.`
 			);
-			dropdown.classList.remove("visually-hidden");
+			openCityDropdown();
 			cityList.innerHTML = ""; // Clear existing content
-			cities.forEach((city) => {
+			cityOptions = [];
+			cities.forEach((city, index) => {
 				const option = document.createElement("div");
-				option.innerHTML = `${city["data.name"]}${
+				option.textContent = `${city["data.name"]}${
 					city["data.state"] ? ", " + city["data.state"] : ""
 				}, ${city["data.country"]}`;
+				option.id = `city-option-${index}`;
+				option.setAttribute("role", "option");
+				option.setAttribute("aria-selected", "false");
+				option.tabIndex = -1;
 				option.dataset.name = city["data.name"];
 				option.dataset.state = city["data.state"] || '';
 				option.dataset.country = city["data.country"];
@@ -65,29 +180,18 @@ const getCityObjectData = async () => {
 
 				//Event Listener for city selection
 				option.addEventListener('click', () => {
-					cityInputElement.value = option.dataset.name;
-					announceToScreenReader(`Loading weather for ${option.dataset.name}.`);
-					const dropdown = document.querySelector(".dropdown");
-					dropdown.classList.add("visually-hidden");
-					fetchWeather(option.dataset.lat, option.dataset.lon);
+					selectCityOption(option);
 				});
 
-				//If the user clicks or taps outside the dropdown, close it
-				window.addEventListener('click', (event) => {
-					if (!event.target.matches('.dropdown, .dropdown *') && !event.target.matches('#cityInput')) {
-						dropdown.classList.add('visually-hidden');
-					}
+				option.addEventListener("mouseenter", () => {
+					setActiveCityOption(index);
 				});
-				window.addEventListener('touchstart', (event) => {
-					if (!event.target.matches('.dropdown, .dropdown *') && !event.target.matches('#cityInput')) {
-						dropdown.classList.add('visually-hidden');
-					}
-				});
-
-
 
 				cityList.appendChild(option);
+				cityOptions.push(option);
 			});
+
+			setActiveCityOption(0);
 		}
 	} catch (error) {
 		console.error(error);
