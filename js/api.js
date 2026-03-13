@@ -3,6 +3,7 @@
 //Fetch city data
 const getCityObjectData = async () => {
 	const cityInput = cityInputElement.value;
+	announceToScreenReader(`Searching for ${cityInput}.`);
 	console.log(cityInput);
 	//Geo-coding API: Direct Geo-coding: Takes a city name, and returns an array of cities for the user to choose from if there are multiple matches.
 	try {
@@ -27,9 +28,16 @@ const getCityObjectData = async () => {
 		});
 		console.log("cities array:", cities);
 
+		if (cities.length === 0) {
+			announceToScreenReader(`No matches found for ${cityInput}.`, { assertive: true });
+			alert("No matching cities found. Please try another search.");
+			return;
+		}
+
 		//If there is only one city, use it
 		if (cities.length === 1) {
 			const city = cities[0];
+			announceToScreenReader(`Loading weather for ${city["data.name"]}.`);
 			cityInputElement.value = city["data.name"];
 			const dropdown = document.querySelector(".dropdown");
 			dropdown.classList.add("visually-hidden");
@@ -39,6 +47,9 @@ const getCityObjectData = async () => {
 		if (cities.length > 1) {
 			const dropdown = document.querySelector(".dropdown");
 			const cityList = document.getElementById("cityList");
+			announceToScreenReader(
+				`Found ${cities.length} matches for ${cityInput}. Choose a city from the list.`
+			);
 			dropdown.classList.remove("visually-hidden");
 			cityList.innerHTML = ""; // Clear existing content
 			cities.forEach((city) => {
@@ -55,6 +66,7 @@ const getCityObjectData = async () => {
 				//Event Listener for city selection
 				option.addEventListener('click', () => {
 					cityInputElement.value = option.dataset.name;
+					announceToScreenReader(`Loading weather for ${option.dataset.name}.`);
 					const dropdown = document.querySelector(".dropdown");
 					dropdown.classList.add("visually-hidden");
 					fetchWeather(option.dataset.lat, option.dataset.lon);
@@ -79,6 +91,7 @@ const getCityObjectData = async () => {
 		}
 	} catch (error) {
 		console.error(error);
+		announceToScreenReader(`Error fetching city data: ${error.message}`, { assertive: true });
 		alert("Error fetching geo data: " + error.message);
 	}
 };
@@ -160,8 +173,13 @@ async function fetchWeather(lat, lon) {
 		const forecastData = await fetch3DayForecast(lat, lon);
 		updateForecast(forecastData);
 
+		announceToScreenReader(
+			`Weather updated for ${data.name}. ${Math.round(temp)} degrees ${isFahrenheit ? "Fahrenheit" : "Celsius"}, ${capitalizedDescription}.`
+		);
+
 	} catch (error) {
 		console.error(error);
+		announceToScreenReader(`Error fetching weather data: ${error.message}`, { assertive: true });
 		alert("Error fetching weather data: " + error.message);
 
 		// Show empty weather message on error

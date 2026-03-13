@@ -28,4 +28,22 @@ const getWeatherIconClass = (id, icon) => {
 	return 'wi ' + prefix + id;
 };
 
+// Announce status/error updates for screen reader users.
+function announceToScreenReader(message, options = {}) {
+	if (!message) {
+		return;
+	}
+
+	const regionId = options.assertive ? 'srAlert' : 'srStatus';
+	const liveRegion = document.getElementById(regionId);
+	if (!liveRegion) {
+		return;
+	}
+
+	liveRegion.textContent = '';
+	window.setTimeout(() => {
+		liveRegion.textContent = message;
+	}, 30);
+}
+
 

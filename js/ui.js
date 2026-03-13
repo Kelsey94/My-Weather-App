@@ -75,6 +75,7 @@ window.addEventListener("load", async () => {
 cityForm.addEventListener("submit", (event) => {
 	event.preventDefault();
 	if (cityInputElement.value.trim().length === 0) {
+		announceToScreenReader("Please enter a city name before searching.", { assertive: true });
 		alert("Please enter a city name.");
 		return;
 	}
