@@ -45,21 +45,20 @@ main div.card {
 }
 
 /* Override Bootstrap input focus glow */
-#citySearchForm input.search-input:focus {
-  outline: 1px solid #680aff52;
-	box-shadow: 0 0 5px rgba(104, 10, 255, 0.5);
-	border-radius: 50px;
+.form-control.search-input:focus {
+	outline: none;
+	box-shadow: none;
 	height: auto;
 }
 
-/* Provide an accessible keyboard ring */
+.search-container:focus-within {
+	box-shadow: inset 0 0 0 1px #667eea;
+}
 
-
-.form-control.search-input:focus-visible,
 .btn:focus-visible,
 .form-check-input:focus-visible,
 [role="button"]:focus-visible {
-  outline: 3px solid #9021ff;
+  outline: 3px solid #667eea;
   outline-offset: 2px;
 }
 
@@ -85,14 +84,6 @@ main div.card {
 	width: 85%;
 
 }
-
-
-/* .form-control.search-input:active {
-	background-color: transparent !important;
-	box-shadow: none !important;
-	appearance: none;
-	-webkit-appearance: none;
-} */
 
 /* Prevent browser autofill tint from painting over the rounded search container. */
 .form-control.search-input:-webkit-autofill,
