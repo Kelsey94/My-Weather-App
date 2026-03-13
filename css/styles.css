@@ -37,35 +37,32 @@ main div.card {
   font-weight: normal;
   font-style: normal;
 }
-.m-plus-rounded-1c-light {
-	font-family: "M PLUS Rounded 1c", sans-serif;
-	font-weight: 300;
-	font-style: normal;
-}
-
-.m-plus-rounded-1c-regular {
-	font-family: "M PLUS Rounded 1c", sans-serif;
-	font-weight: 400;
-	font-style: normal;
-}
-
-.m-plus-rounded-1c-medium {
-	font-family: "M PLUS Rounded 1c", sans-serif;
-	font-weight: 500;
-	font-style: normal;
-}
-
-.m-plus-rounded-1c-bold {
-	font-family: "M PLUS Rounded 1c", sans-serif;
-	font-weight: 700;
-	font-style: normal;
-}
 
 /*Main*/
 
 .card{
 	min-width: 250px;
 }
+
+/* Override Bootstrap input focus glow */
+#citySearchForm input.search-input:focus {
+  outline: 1px solid #680aff52;
+	box-shadow: 0 0 5px rgba(104, 10, 255, 0.5);
+	border-radius: 50px;
+	height: auto;
+}
+
+/* Provide an accessible keyboard ring */
+
+
+.form-control.search-input:focus-visible,
+.btn:focus-visible,
+.form-check-input:focus-visible,
+[role="button"]:focus-visible {
+  outline: 3px solid #9021ff;
+  outline-offset: 2px;
+}
+
 
 /*Search Bar*/
 .search-container {
@@ -77,8 +74,7 @@ main div.card {
 	max-width: 500px;
 	width: 100%;
 	transition: all 0.3s ease;
-	
-}
+}		
 
 .form-control.search-input {
 	border: none;
@@ -88,10 +84,22 @@ main div.card {
 	height: 30px;
 }
 
-.form-control.search-input:focus {
-	box-shadow: none;
+/* .form-control.search-input:focus {
 	outline: none;
-}
+} */
+
+/* .form-control.search-input:focus-visible {
+	outline: 3px solid #782fd8;
+	border-radius: 50px;
+	outline-offset: 3px;
+} */
+
+/* .search-container:focus{
+	border: 2px solid #0a58ff;
+	border-radius: 50px	;
+	border-color: #585680;
+	box-shadow: inset 1px 1px 7px 3px rgba(172, 171, 171, 0.1), 0 0 0 3px rgba(10, 88, 255, 0.25);
+} */
 
 .search-icon {
 	color: #6c757d;
@@ -159,6 +167,13 @@ main div.card {
 	fill: #2d54ff;
 }
 
+/* button:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible {
+	outline: 3px solid #0a58ff;
+	outline-offset: 3px;
+} */
+
 /*Tooltip Styles*/
 .my-tooltip {
 	cursor: pointer;
@@ -166,6 +181,11 @@ main div.card {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.my-tooltip:focus-visible {
+	border-radius: 0.5rem;
+	box-shadow: 0 0 0 4px rgba(10, 88, 255, 0.3);
 }
 
 .my-tooltip:hover {

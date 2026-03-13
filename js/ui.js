@@ -16,6 +16,10 @@ let lastData = null;
 
 // Load saved weather data on page load
 window.addEventListener("load", async () => {
+	if (cityInputElement) {
+		cityInputElement.focus();
+	}
+
 	const savedData = localStorage.getItem("weatherData");
 	if (savedData) {
 		lastData = JSON.parse(savedData);
@@ -117,6 +121,14 @@ tempUnitToggle.addEventListener("change", () => {
 	}
 });
 
+//Add keyboard event listener to Temperature Unit Toggle switch to allow toggling with Enter or Space
+tempUnitToggle.addEventListener("keydown", (event) => {
+	if (event.key === "Enter" || event.key === " ") {
+		event.preventDefault();
+		tempUnitToggle.click();
+	}
+});
+
 // Create tooltip element
 const tooltip = document.createElement("div");
 tooltip.className = "my-tooltip-text";
@@ -152,9 +164,11 @@ tooltipContainer.addEventListener("mouseleave", () => {
 
 // Accordion functionality
 let isExpanded = true;
-tooltipContainer.addEventListener("click", () => {
-	//Toggle the expanded state on each click
+
+function toggleWeatherDetails() {
+	// Toggle expanded state and sync the visual and ARIA states.
 	isExpanded = !isExpanded;
+	tooltipContainer.setAttribute("aria-expanded", String(isExpanded));
 
 	if (isExpanded) {
 		// Show up arrow, hide down arrow
@@ -179,4 +193,16 @@ tooltipContainer.addEventListener("click", () => {
 			moreDetail.classList.add("d-none");
 		}
 	}
+}
+
+// Add click and keyboard event listeners to the tooltip container
+tooltipContainer.addEventListener("click", toggleWeatherDetails);
+tooltipContainer.addEventListener("keydown", (event) => {
+	if (event.key === "Enter" || event.key === " ") {
+		event.preventDefault();
+		toggleWeatherDetails();
+	}
 });
+
+
+

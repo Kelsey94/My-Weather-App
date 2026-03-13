@@ -46,8 +46,7 @@
                         <!--City Search-->
                         <div class="container">
                             <div class="row justify-content-center">
-                                <div
-                                    class="search-container position-relative p-0 m-0">
+                                <div class="search-container position-relative p-0 m-0">
                                     <form class="d-flex align-items-center w-100" id="citySearchForm">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             width="20" height="20"
@@ -67,13 +66,15 @@
                                             id="citySearch" 
                                             type="search"
                                             placeholder="City Name"
-                                            aria-label="Search"
+                                            aria-label="Search by City Name"
                                             autocomplete="on"
                                             autocapitalize="on"
                                             >
                                         <button
                                             class="btn btn-search bg-primary mx-2 rounded-5 text-white px-3 me-0"
-                                            type="submit">Search</button>
+                                            type="submit"
+                                            aria-label="Submit City Search"
+                                            >Search</button>
                                     </form>
                                     <div class="dropdown visually-hidden">
                                         <div id="cityList" class="dropdown-content">
@@ -96,7 +97,8 @@
                                 <div class="form-switch">
                                     <input class="form-check-input"
                                         type="checkbox" role="switch"
-                                        id="switchCheckDefault">
+                                        id="switchCheckDefault"
+                                        aria-label="Toggle Temperature Units">
                                     <label class="form-check-label"
                                         for="switchCheckDefault"></label>
                                 </div>
@@ -132,7 +134,7 @@
                     </div>
 
                     <!--More Weather Details Menu-->
-                    <div class="card-body my-tooltip p-0 m-0">
+                    <div class="card-body my-tooltip p-0 m-0" tabindex="0" role="button" aria-expanded="true" aria-controls="moreDetail" aria-label="Toggle weather details">
                         <!--Down Arrow-->
                         <svg id="accordionButtonDown" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="lightgrey" class="bi bi-chevron-compact-down m-0 p-0" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67" />
@@ -150,16 +152,16 @@
                             <!--UV Index Container-->
                             <div class="detail-box-container">
                                 <!--UV Index Label-->
-                                <p id="uv_index" class="detail-title">
+                                <p id="uv_index" class="detail-title" aria-label="UV Index">
                                     UV Index:
-                                    <span id="uv-index-num" class="detail-num">
+                                    <span id="uv-index-num" class="detail-num" aria-label="UV Index Number">
                                         <!--UV Index Number Goes Here-->
                                     </span>
                                 </p>
                                 <!--UV Index Slider-->
                                 <div class="slider">
                                 <!--UV Index Slider Label: Low, Moderate, High, Very High, Extreme-->
-                                    <label for="uv_index-range" id="uv-index-summary" class="detail-summary"></label>
+                                    <label for="uv-index-range" id="uv-index-summary" class="detail-summary" aria-label="UV Index"></label>
                                     <input
                                         class="range-slider"
                                         id="uv-index-range"
@@ -168,22 +170,23 @@
                                         min="1"
                                         max="13"
                                         value=""
-                                        disabled>
+                                        disabled
+                                        aria-disabled="true">
                                 </div>
                             </div>
 
                             <!--Humidity Container-->
                             <div class="detail-box-container">
                                 <!--Humidity Label-->
-                                <p id="humidity" class="detail-title">
+                                <p id="humidity" class="detail-title" aria-label="Humidity">
                                     Humidity:
-                                    <span id="humidity-num" class="detail-num">
+                                    <span id="humidity-num" class="detail-num" aria-label="Humidity Percentage">
                                         <!--Humidity % Goes Here-->
                                     </span>
                                 </p>
                                 <!--Humidity Slider-->
                                 <div class="slider">
-                                    <label for="humidity-range" id="humidity-summary" class="detail-summary"></label>
+                                    <label for="humidity-range" id="humidity-summary" class="detail-summary" aria-label="Humidity Range"></label>
                                     <input
                                         class="range-slider"
                                         id="humidity-range"
@@ -192,7 +195,8 @@
                                         min="1"
                                         max="100"
                                         value=""
-                                        disabled>
+                                        disabled
+                                        aria-disabled="true">
                                 </div>
                             </div>
                         </div> 
