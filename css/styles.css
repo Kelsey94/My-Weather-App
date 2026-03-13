@@ -81,7 +81,9 @@ main div.card {
 	background: transparent;
 	padding-left: 20px;
 	font-size: 1rem;
-	height: 30px;
+	height: 2rem;
+	width: 85%;
+
 }
 
 /* .form-control.search-input:focus {
